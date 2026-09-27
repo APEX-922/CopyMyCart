@@ -335,8 +335,21 @@
       text-align: center;
       font-weight: 700;
       font-family: 'Montserrat', sans-serif;
-      margin-bottom: 24px;
+      margin-bottom: 16px;
       letter-spacing: 0.3px;
+    }
+
+    .instruction-banner {
+      font-size: 13px;
+      color: var(--text-gold);
+      background: rgba(223, 186, 103, 0.08);
+      border: 1px solid var(--card-border);
+      padding: 14px 18px;
+      border-radius: var(--radius-md);
+      margin-bottom: 24px;
+      line-height: 1.5;
+      text-align: center;
+      display: none;
     }
 
     /* Master Amazon Multicart Badge Style */
@@ -636,6 +649,11 @@
         <!-- Dynamic Master Amazon Multi-Cart Badge (Visible only if 2+ Amazon items) -->
         <div id="amazon-multicart-container" class="amazon-multicart-wrapper" style="display:none;"></div>
 
+        <!-- Dynamic Instruction Banner (Shown only if eBay items are present) -->
+        <div class="instruction-banner" id="instruction-banner">
+          Review your shared items below. Click individual add-to-cart buttons to process items:
+        </div>
+
         <div class="item-list" id="item-list"></div>
 
         <div class="reset-container" id="reset-container" style="display:none;">
@@ -738,6 +756,7 @@
     }).filter(item => item.id.length > 0);
 
     const itemCountText = document.getElementById("item-count-text");
+    const instructionBanner = document.getElementById("instruction-banner");
     const amazonMulticartContainer = document.getElementById("amazon-multicart-container");
     const itemListContainer = document.getElementById("item-list");
     const resetContainer = document.getElementById("reset-container");
@@ -774,7 +793,15 @@
       const completedIds = getCompletedItems();
 
       const amazonItems = parsedItems.filter(i => i.isAmazon);
+      const ebayItems = parsedItems.filter(i => !i.isAmazon);
       const useMultiCart = amazonItems.length >= 2;
+
+      // Show instruction banner ONLY if there are eBay items requiring individual tracking
+      if (ebayItems.length > 0) {
+        instructionBanner.style.display = "block";
+      } else {
+        instructionBanner.style.display = "none";
+      }
 
       // Handle Master Badge Display with Sparkles
       if (useMultiCart) {
@@ -804,6 +831,8 @@
         chk.type = "checkbox";
         chk.className = "item-chk";
         chk.checked = isAlreadyCompleted;
+        // Checkboxes hidden by default, shown only if completed
+        chk.style.display = isAlreadyCompleted ? "inline-block" : "none";
 
         const details = document.createElement("div");
         details.className = "item-details";
@@ -847,11 +876,13 @@
               btn.classList.add("btn-completed");
               btn.textContent = "Complete";
               chk.checked = true;
+              chk.style.display = "inline-block";
             } else {
               card.classList.remove("completed");
               btn.classList.remove("btn-completed");
               btn.textContent = "Add to Cart";
               chk.checked = false;
+              chk.style.display = "none";
             }
           }
 
@@ -884,11 +915,13 @@
               btn.classList.add("btn-completed");
               btn.textContent = "Complete";
               chk.checked = true;
+              chk.style.display = "inline-block";
             } else {
               card.classList.remove("completed");
               btn.classList.remove("btn-completed");
               btn.textContent = "Add to Cart";
               chk.checked = false;
+              chk.style.display = "none";
             }
           }
 
@@ -906,16 +939,17 @@
           card.appendChild(btn);
 
         } else {
-          // 2+ Amazon items: Hide individual button, allow checkbox tracking
-          chk.style.display = "inline-block";
+          // 2+ Amazon items: Hide individual button, allow checkbox tracking when toggled via storage/interaction
           if (isAlreadyCompleted) {
             card.classList.add("completed");
+            chk.style.display = "inline-block";
           }
           chk.addEventListener("change", (e) => {
             const checked = e.target.checked;
             toggleItemCompleted(item.id, checked);
             if (checked) {
               card.classList.add("completed");
+              chk.style.display = "inline-block";
             } else {
               card.classList.remove("completed");
             }
