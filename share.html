@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CopyMyCart — Shared Cart Items</title>
+
+  <!-- HTML Meta Tags -->
+  <meta name="description" content="View and add shared items directly to your cart with CopyMyCart.">
+
+  <!-- Facebook Meta Tags / Open Graph -->
+  <meta property="og:url" content="https://apex-922.github.io/CopyMyCart/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="☆ CopyMyCart ☆ Someone Shared a Cart With You">
+  <meta property="og:description" content="View and add shared items directly to your cart with CopyMyCart.">
+  <meta property="og:image" content="https://raw.githubusercontent.com/APEX-922/CopyMyCart/main/icon.png">
+
+  <!-- Twitter Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta property="twitter:domain" content="apex-922.github.io">
+  <meta property="twitter:url" content="https://apex-922.github.io/CopyMyCart/">
+  <meta name="twitter:title" content="☆ CopyMyCart ☆ Someone Shared a Cart With You">
+  <meta name="twitter:description" content="View and add shared items directly to your cart with CopyMyCart.">
+  <meta name="twitter:image" content="https://raw.githubusercontent.com/APEX-922/CopyMyCart/main/icon.png">
+
+  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/APEX-922/CopyMyCart/main/icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800;900&family=Inter:wght@300;400;500;600;700&display=swap">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #080A0F;
+      --card-bg: rgba(18, 22, 31, 0.85);
+      --card-border: rgba(223, 186, 103, 0.25);
+      --card-border-glow: rgba(223, 186, 103, 0.9);
+      --text-main: #ffffff;
+      --text-muted: rgba(255, 255, 255, 0.7);
+      --text-gold: #F3D99B;
+      --gold-gradient: linear-gradient(135deg, #F9E4B7 0%, #DFBA67 50%, #9E7D3B 100%);
+      --gold-solid: #DFBA67;
+      --ebay-blue-gradient: linear-gradient(135deg, #0064D2 0%, #0046BE 100%);
+      --ebay-blue-solid: #0064D2;
+      --amazon-gold-gradient: linear-gradient(135deg, #FBE3B5 0%, #E2C374 50%, #B89648 100%);
+      --radius-lg: 12px;
+      --radius-md: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(circle at 50% 0%, rgba(223, 186, 103, 0.15) 0%, transparent 65%),
+        radial-gradient(circle at 80% 90%, rgba(158, 125, 59, 0.1) 0%, transparent 50%);
+      color: var(--text-main);
+      line-height: 1.6;
+      overflow-x: hidden;
+      position: relative;
+      min-height: 100vh;
+    }
+
+    .parallax-bg {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 550px;
+      height: 550px;
+      background-image: url('https://raw.githubusercontent.com/APEX-922/CopyMyCart/main/icon.png');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+      opacity: 0.15;
+      pointer-events: none;
+      z-index: 0;
+      filter: drop-shadow(0 0 35px rgba(223, 186, 103, 0.25));
+      transition: opacity 0.3s ease, filter 0.3s ease;
+    }
+
+    .glitter-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .sparkle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: #F9E4B7;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #DFBA67, 0 0 12px #F9E4B7;
+      animation: sparkleFly 3s infinite ease-in-out;
+      opacity: 0;
+      will-change: transform, opacity;
+    }
+
+    @keyframes sparkleFly {
+      0% { transform: translateY(10px) scale(0.3); opacity: 0; }
+      50% { opacity: 0.8; }
+      100% { transform: translateY(-40px) scale(1.1); opacity: 0; }
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 2;
+    }
+
+    header {
+      padding: 40px 0 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid var(--card-border);
+      background: rgba(10, 13, 20, 0.85);
+      backdrop-filter: blur(12px);
+      gap: 24px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      position: relative;
+      width: 100%;
+      max-width: 650px;
+      cursor: pointer;
+    }
+
+    .svg-logo-banner {
+      width: 100%;
+      height: auto;
+      max-height: 95px;
+      overflow: visible;
+      filter: drop-shadow(0 0 25px rgba(223, 186, 103, 0.6)) brightness(1.15) !important;
+      forced-color-adjust: none !important;
+      color-scheme: only dark !important;
+      transition: transform 0.3s ease, filter 0.3s ease;
+    }
+
+    .svg-logo-banner text {
+      fill: #F3D99B !important;
+      color: #F3D99B !important;
+      forced-color-adjust: none !important;
+    }
+
+    .logo:hover .svg-logo-banner {
+      transform: scale(1.03);
+      filter: drop-shadow(0 0 35px rgba(223, 186, 103, 0.85)) brightness(1.25) !important;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .nav-link {
+      padding: 10px 22px;
+      border-radius: 20px;
+      background: rgba(18, 22, 31, 0.6);
+      border: 1px solid var(--card-border);
+      color: var(--text-gold);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      font-family: 'Montserrat', sans-serif;
+      transition: transform 0.2s ease, background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+      display: inline-block;
+      cursor: pointer;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      background: var(--gold-gradient);
+      color: #080A0F;
+      border-color: var(--card-border-glow);
+      box-shadow: 0 0 25px rgba(223, 186, 103, 0.6), inset 0 0 10px rgba(255, 255, 255, 0.4);
+    }
+
+    .main-content {
+      padding: 50px 0 60px;
+    }
+
+    .cart-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      max-width: 800px;
+      margin: 0 auto 40px auto;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+      transition: transform 0.2s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cart-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle 250px at var(--mouse-x, -500px) var(--mouse-y, -500px), rgba(223, 186, 103, 0.15), transparent 80%);
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .cart-card:hover {
+      border-color: var(--card-border-glow);
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6), 0 0 30px rgba(223, 186, 103, 0.35);
+    }
+
+    .cart-card > * {
+      position: relative;
+      z-index: 2;
+    }
+
+    .cta-group {
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+      gap: 20px;
+      flex-wrap: wrap;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .badge-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 24px;
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+      width: 100%;
+      max-width: 380px;
+    }
+
+    .badge-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle 180px at var(--mouse-x, -500px) var(--mouse-y, -500px), rgba(223, 186, 103, 0.15), transparent 80%);
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .badge-card:hover {
+      border-color: var(--card-border-glow);
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6), 0 0 30px rgba(223, 186, 103, 0.35);
+    }
+
+    .badge-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      font-weight: 800;
+      color: #F3D99B !important;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      text-align: center;
+      forced-color-adjust: none !important;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 10px 24px;
+      border-radius: 30px;
+      background: rgba(18, 22, 31, 0.85);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--card-border);
+      color: #F3D99B !important;
+      font-size: 15px;
+      font-weight: 700;
+      font-family: 'Montserrat', sans-serif;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4), 0 0 20px rgba(223, 186, 103, 0.15);
+      position: relative;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease, color 0.3s ease;
+      width: 100%;
+      forced-color-adjust: none !important;
+      text-decoration: none;
+    }
+
+    .badge span {
+      color: #F3D99B !important;
+      forced-color-adjust: none !important;
+    }
+
+    .badge:hover {
+      border-color: var(--card-border-glow);
+      box-shadow: 0 0 25px rgba(223, 186, 103, 0.6), inset 0 0 10px rgba(255, 255, 255, 0.4);
+    }
+
+    .badge-icon {
+      width: 24px;
+      height: 24px;
+      object-fit: contain;
+    }
+
+    .subtitle {
+      font-size: 15px;
+      color: var(--text-gold);
+      text-align: center;
+      font-weight: 700;
+      font-family: 'Montserrat', sans-serif;
+      margin-bottom: 16px;
+      letter-spacing: 0.3px;
+    }
+
+    .instruction-banner {
+      font-size: 13px;
+      color: var(--text-gold);
+      background: rgba(223, 186, 103, 0.08);
+      border: 1px solid var(--card-border);
+      padding: 14px 18px;
+      border-radius: var(--radius-md);
+      margin-bottom: 24px;
+      line-height: 1.5;
+      text-align: center;
+      display: none;
+    }
+
+    /* Master Amazon Multicart Badge Style */
+    .amazon-multicart-wrapper {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 28px;
+    }
+
+    .badge.amazon-multicart-badge {
+      background: rgba(18, 22, 31, 0.95);
+      border: 1px solid var(--card-border-glow);
+      padding: 12px 28px;
+      max-width: 380px;
+      width: 100%;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5), 0 0 25px rgba(223, 186, 103, 0.3);
+    }
+
+    .badge.amazon-multicart-badge:hover {
+      border-color: var(--card-border-glow);
+      box-shadow: 0 0 30px rgba(223, 186, 103, 0.75), inset 0 0 12px rgba(255, 255, 255, 0.4);
+      transform: translateY(-2px);
+    }
+
+    .item-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 24px;
+      max-height: 600px;
+      overflow-y: auto;
+      padding-right: 6px;
+    }
+
+    .item-list::-webkit-scrollbar {
+      width: 6px;
+    }
+    .item-list::-webkit-scrollbar-track {
+      background: rgba(8, 10, 15, 0.6);
+      border-radius: 4px;
+    }
+    .item-list::-webkit-scrollbar-thumb {
+      background: var(--card-border);
+      border-radius: 4px;
+    }
+    .item-list::-webkit-scrollbar-thumb:hover {
+      background: var(--card-border-glow);
+    }
+
+    .item-card {
+      background: rgba(8, 10, 15, 0.75);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      transition: all 0.25s ease;
+      width: 100%;
+    }
+
+    .item-card:hover {
+      border-color: var(--card-border-glow);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5), 0 0 12px rgba(223, 186, 103, 0.2);
+    }
+
+    .item-card.completed {
+      background: rgba(5, 7, 10, 0.85);
+      border-color: rgba(223, 186, 103, 0.12);
+      opacity: 0.55;
+    }
+
+    .item-card.completed .item-title-link {
+      color: var(--text-muted);
+      text-decoration: line-through;
+    }
+
+    .item-chk {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--ebay-blue-solid);
+      cursor: pointer;
+      flex-shrink: 0;
+      display: none;
+    }
+
+    .item-card.completed .item-chk {
+      display: inline-block;
+    }
+
+    .item-details {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .item-title-link {
+      color: var(--text-gold);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      transition: color 0.2s ease;
+    }
+
+    .item-title-link:hover {
+      color: #ffffff;
+      text-decoration: underline;
+    }
+
+    .item-id-tag {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .btn-item-cart {
+      padding: 10px 18px;
+      font-weight: 700;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.3px;
+      border-radius: 20px;
+      cursor: pointer;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+      display: inline-block;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .btn-item-cart.ebay-btn {
+      background: var(--ebay-blue-gradient);
+      color: #ffffff;
+      border: 1px solid #0046BE;
+      box-shadow: 0 2px 8px rgba(0, 100, 210, 0.3);
+    }
+    .btn-item-cart.ebay-btn:hover {
+      border-color: #ffffff;
+      box-shadow: 0 0 15px rgba(0, 100, 210, 0.6);
+      transform: translateY(-1px);
+    }
+
+    .btn-item-cart.amazon-btn {
+      background: var(--amazon-gold-gradient);
+      color: #000000;
+      border: 1px solid #ffffff;
+      box-shadow: 0 2px 8px rgba(223, 186, 103, 0.4);
+    }
+    .btn-item-cart.amazon-btn:hover {
+      border-color: #ffffff;
+      box-shadow: 0 0 15px rgba(223, 186, 103, 0.8);
+      transform: translateY(-1px);
+    }
+
+    .btn-item-cart.btn-completed {
+      background: rgba(223, 186, 103, 0.15) !important;
+      color: var(--text-gold) !important;
+      border-color: rgba(223, 186, 103, 0.3) !important;
+      box-shadow: none !important;
+      font-weight: 600 !important;
+    }
+
+    .reset-container {
+      margin-top: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .btn-reset-all {
+      background: rgba(18, 22, 31, 0.6);
+      color: var(--text-muted);
+      border: 1px dashed var(--card-border);
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      font-family: 'Montserrat', sans-serif;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-reset-all:hover {
+      color: #ffffff;
+      border-color: var(--card-border-glow);
+      background: rgba(223, 186, 103, 0.15);
+      box-shadow: 0 0 15px rgba(223, 186, 103, 0.2);
+    }
+
+    .try-copycart-text {
+      font-size: 13px;
+      font-weight: 600;
+      font-family: 'Montserrat', sans-serif;
+      text-align: center;
+      color: var(--text-gold);
+      line-height: 1.5;
+    }
+
+    footer {
+      padding: 40px 0;
+      border-top: 1px solid var(--card-border);
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    footer a {
+      color: var(--text-gold);
+      text-decoration: underline;
+    }
+
+    .footer-compliance {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.7);
+      margin-top: 10px;
+      line-height: 1.4;
+    }
+
+    @media (max-width: 768px) {
+      header {
+        padding: 30px 0 20px;
+        gap: 18px;
+      }
+      .svg-logo-banner {
+        max-height: 70px;
+      }
+      .cart-card {
+        padding: 28px 20px;
+      }
+      .nav-link {
+        padding: 8px 16px;
+        font-size: 13px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="parallax-bg" id="bgLogoCenter" aria-hidden="true"></div>
+
+  <div class="container">
+    <header>
+      <a href="https://apex-922.github.io/CopyMyCart/index" class="logo" id="headerLogo">
+        <div style="position:relative; width: 100%; display: flex; justify-content: center; align-items: center;">
+          <svg class="svg-logo-banner" viewBox="0 0 650 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs>
+              <filter id="goldGlow" x="-30%" y="-30%" width="160%" height="160%">
+                <feGaussianBlur stdDeviation="5" result="blur" />
+                <feComponentTransfer in="blur" result="glow1">
+                  <feFuncA type="linear" slope="0.8"/>
+                </feComponentTransfer>
+                <feMerge>
+                  <feMergeNode in="glow1" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+            </defs>
+            <text
+              x="50%"
+              y="55%"
+              dominant-baseline="middle"
+              text-anchor="middle"
+              fill="#F3D99B"
+              filter="url(#goldGlow)"
+              style='
+                font-family: "Montserrat", "Arial Black", sans-serif;
+                font-weight: 900;
+                font-size: 76px;
+                letter-spacing: -3px;
+                fill: #F3D99B !important;
+                forced-color-adjust: none !important;
+              '>
+              CopyMyCart
+            </text>
+          </svg>
+          <div class="glitter-container" id="logoGlitter" aria-hidden="true"></div>
+        </div>
+      </a>
+      <nav class="nav-links">
+        <a href="https://apex-922.github.io/CopyMyCart/index#features" class="nav-link">Features</a>
+        <a href="https://apex-922.github.io/CopyMyCart/index#how-it-works" class="nav-link">How It Works</a>
+        <a href="https://apex-922.github.io/CopyMyCart/Support" class="nav-link">Link Generator</a>
+        <a href="https://apex-922.github.io/CopyMyCart/PrivacyPolicy" class="nav-link">Privacy</a>
+      </nav>
+    </header>
+
+    <main class="main-content">
+      <div class="cart-card magnetic-target">
+        <p class="subtitle" id="item-count-text">Loading shared collection...</p>
+        
+        <!-- Dynamic Master Amazon Multi-Cart Badge (Visible only if 2+ Amazon items) -->
+        <div id="amazon-multicart-container" class="amazon-multicart-wrapper" style="display:none;"></div>
+
+        <!-- Dynamic Instruction Banner (Shown only if eBay items are present) -->
+        <div class="instruction-banner" id="instruction-banner">
+          Review your shared items below. Click individual add-to-cart buttons to process items:
+        </div>
+
+        <div class="item-list" id="item-list"></div>
+
+        <div class="reset-container" id="reset-container" style="display:none;">
+          <button class="btn-reset-all" id="reset-all-btn">↻ Reset Progress for All Items</button>
+          <div class="try-copycart-text">Want to share your own carts? Click the CopyMyCart logo at the top to explore the extension!</div>
+        </div>
+      </div>
+
+      <div class="cta-group">
+        <div class="badge-card magnetic-target">
+            <span class="badge-label">Get This For Google Chrome</span>
+            <a href="https://chromewebstore.google.com/detail/copycart/lhnmfphjaelpcpgfjjokadcfjljgmekb?authuser=1&hl=en" class="badge" id="badgeLogoChrome" target="_blank" rel="noopener noreferrer">
+                <div style="position:relative; display:inline-block;">
+                    <img src="https://raw.githubusercontent.com/APEX-922/CopyMyCart/main/icon.png" alt="CopyMyCart Icon" class="badge-icon">
+                    <div class="glitter-container" id="badgeGlitterChrome" aria-hidden="true"></div>
+                </div>
+                <span>CopyMyCart v1.8</span>
+            </a>
+        </div>
+
+        <div class="badge-card magnetic-target">
+            <span class="badge-label">Get This For Mozilla Firefox</span>
+            <a href="https://addons.mozilla.org/en-US/firefox/addon/CopyMyCart/" class="badge" id="badgeLogoFirefox" target="_blank" rel="noopener noreferrer">
+                <div style="position:relative; display:inline-block;">
+                    <img src="https://raw.githubusercontent.com/APEX-922/CopyMyCart/main/icon.png" alt="CopyMyCart Icon" class="badge-icon">
+                    <div class="glitter-container" id="badgeGlitterFirefox" aria-hidden="true"></div>
+                </div>
+                <span>CopyMyCart v1.8</span>
+            </a>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <p>Copyright &copy; 2026 APEX. All Rights Reserved.</p>
+      <p style="margin-top: 8px;"><a href="https://apex-922.github.io/CopyMyCart/PrivacyPolicy">Privacy Policy</a></p>
+      <p class="footer-compliance">CopyMyCart is an independent third-party tool and is not affiliated with, endorsed by, or sponsored by Amazon.com, Inc., eBay Inc., Google LLC, or Mozilla Corporation. As an Amazon Associate CopyMyCart earns from qualifying purchases. As an eBay Partner CopyMyCart may earn from qualifying purchases. Google Chrome is a trademark of Google LLC. Firefox is a trademark of Mozilla Foundation.</p>
+    </footer>
+  </div>
+
+  <script>
+    const EPN_CAMPAIGN_ID = "5339209459";
+    const EPN_ROTATION_ID = "711-53200-19255-0";
+    const AMAZON_ASSOCIATE_TAG = "apex087e-20";
+
+    const DEMO_ITEMS = [
+      { id: "B0BP9SNVH9", title: "Fire TV Stick 4K", isAmazon: true, customUrl: null },
+      { id: "B0932QJ2JZ", title: "Apple AirTag (4-Pack)", isAmazon: true, customUrl: null },
+      { id: "B00MW8G62E", title: "Amazon Basics Dog and Puppy Pads", isAmazon: true, customUrl: null },
+      { id: "B00JUM23NO", title: "Hanes Men's Ecosmart Fleece Sweatshirt", isAmazon: true, customUrl: null },
+      { id: "B0032S8XKW", title: "Fresh Step Clumping Cat Litter", isAmazon: true, customUrl: null },
+      { id: "B07N9M4J4J", title: "Keurig K-Cup Pods Variety Pack", isAmazon: true, customUrl: null },
+      { id: "B015332SFS", title: "Bedsure Microfiber Sheet Set", isAmazon: true, customUrl: null },
+      { id: "B01IT9NL0I", title: "Liquid I.V. Hydration Multiplier", isAmazon: true, customUrl: null },
+      { id: "tempered-glass", title: "Tempered Glass Screen Protectors", isAmazon: true, customUrl: `https://www.amazon.com/s?k=tempered+glass+screen+protector&tag=${AMAZON_ASSOCIATE_TAG}` },
+      { id: "B00PBX3L7K", title: "COSRX Advanced Snail 96 Mucin Power Essence", isAmazon: true, customUrl: null }
+    ];
+
+    function isAmazonItem(id) {
+      return (id.length === 10 && !/^\d{10,14}$/.test(id)) || id === "tempered-glass";
+    }
+
+    function buildEbayUrl(id) {
+      const baseUrl = `https://www.ebay.com/itm/${id}`;
+      const params = new URLSearchParams({
+        mkevt: "1",
+        mkcid: "1",
+        mkrid: EPN_ROTATION_ID,
+        siteid: "0",
+        campid: EPN_CAMPAIGN_ID,
+        toolid: "10001"
+      });
+      return `${baseUrl}?${params.toString()}`;
+    }
+
+    function buildAmazonSingleUrl(asin, customUrl = null) {
+      if (customUrl) return customUrl;
+      return `https://www.amazon.com/dp/${asin}?tag=${AMAZON_ASSOCIATE_TAG}`;
+    }
+
+    function buildAmazonMultiCartUrl(amazonItems) {
+      let url = `https://www.amazon.com/gp/aws/cart/add.html?tag=${AMAZON_ASSOCIATE_TAG}&AssociateTag=${AMAZON_ASSOCIATE_TAG}`;
+      let validAsinCount = 0;
+      amazonItems.forEach((item) => {
+        if (item.id !== "tempered-glass") {
+          validAsinCount++;
+          url += `&ASIN.${validAsinCount}=${encodeURIComponent(item.id)}&Quantity.${validAsinCount}=1`;
+        }
+      });
+      return url;
+    }
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const rawItemsParam = urlParams.get("items") || "";
+    
+    let parsedItems = rawItemsParam.split(",").map(entry => {
+      const parts = entry.split(":");
+      const cleanId = (parts[0] || "").trim();
+      const rawTitle = parts.slice(1).join(":");
+      const hasTitle = Boolean(rawTitle);
+      
+      let cleanTitle = isAmazonItem(cleanId) ? `Amazon Item #${cleanId}` : `eBay Item #${cleanId}`;
+      if (hasTitle) {
+        try {
+          cleanTitle = decodeURIComponent(rawTitle);
+        } catch (e) {
+          cleanTitle = rawTitle;
+        }
+      }
+
+      return { 
+        id: cleanId, 
+        title: cleanTitle, 
+        isAmazon: isAmazonItem(cleanId),
+        isPlaceholderTitle: !hasTitle,
+        customUrl: null
+      };
+    }).filter(item => item.id.length > 0);
+
+    const isDemoMode = parsedItems.length === 0;
+    if (isDemoMode) {
+      parsedItems = DEMO_ITEMS;
+    }
+
+    const itemCountText = document.getElementById("item-count-text");
+    const instructionBanner = document.getElementById("instruction-banner");
+    const amazonMulticartContainer = document.getElementById("amazon-multicart-container");
+    const itemListContainer = document.getElementById("item-list");
+    const resetContainer = document.getElementById("reset-container");
+    const resetAllBtn = document.getElementById("reset-all-btn");
+
+    function getCompletedItems() {
+      try {
+        return JSON.parse(sessionStorage.getItem("cartomine_completed_items") || "[]");
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function setItemCompleted(itemId) {
+      const completed = getCompletedItems();
+      if (!completed.includes(itemId)) {
+        completed.push(itemId);
+        sessionStorage.setItem("cartomine_completed_items", JSON.stringify(completed));
+      }
+    }
+
+    function toggleItemCompleted(itemId, isComplete) {
+      let completed = getCompletedItems();
+      if (isComplete) {
+        if (!completed.includes(itemId)) completed.push(itemId);
+      } else {
+        completed = completed.filter(id => id !== itemId);
+      }
+      sessionStorage.setItem("cartomine_completed_items", JSON.stringify(completed));
+    }
+
+    function renderList() {
+      itemListContainer.innerHTML = "";
+      const completedIds = getCompletedItems();
+
+      const amazonItems = parsedItems.filter(i => i.isAmazon);
+      const ebayItems = parsedItems.filter(i => !i.isAmazon);
+      const useMultiCart = amazonItems.length >= 2;
+
+      // Show instruction banner ONLY if there are eBay items requiring individual tracking
+      if (ebayItems.length > 0) {
+        instructionBanner.style.display = "block";
+      } else {
+        instructionBanner.style.display = "none";
+      }
+
+      // Handle Master Badge Display with Sparkles
+      if (useMultiCart) {
+        amazonMulticartContainer.style.display = "flex";
+        const multiCartUrl = buildAmazonMultiCartUrl(amazonItems);
+        amazonMulticartContainer.innerHTML = `
+          <a href="${multiCartUrl}" target="_blank" rel="noopener noreferrer" class="badge amazon-multicart-badge" id="badgeAmazonMulticart">
+            <div style="position:relative; display:inline-block;">
+              <img src="https://raw.githubusercontent.com/APEX-922/CopyMyCart/main/icon.png" alt="Cart Icon" class="badge-icon">
+              <div class="glitter-container" id="badgeGlitterAmazon" aria-hidden="true"></div>
+            </div>
+            <span>Add list to cart</span>
+          </a>
+        `;
+        createGlitter('badgeGlitterAmazon', 4);
+      } else {
+        amazonMulticartContainer.style.display = "none";
+      }
+
+      parsedItems.forEach((item) => {
+        const isAlreadyCompleted = completedIds.includes(item.id);
+
+        const card = document.createElement("div");
+        card.className = `item-card ${isAlreadyCompleted ? 'completed' : ''}`;
+
+        const chk = document.createElement("input");
+        chk.type = "checkbox";
+        chk.className = "item-chk";
+        chk.checked = isAlreadyCompleted;
+        chk.style.display = isAlreadyCompleted ? "inline-block" : "none";
+
+        const details = document.createElement("div");
+        details.className = "item-details";
+
+        const titleLink = document.createElement("a");
+        titleLink.target = "_blank";
+        titleLink.rel = "noopener noreferrer";
+        titleLink.className = "item-title-link";
+        titleLink.textContent = item.title;
+
+        const idTag = document.createElement("div");
+        idTag.className = "item-id-tag";
+        idTag.textContent = `${item.isAmazon ? (item.id === "tempered-glass" ? "SEARCH TERM" : "ASIN") : 'Item ID'}: ${item.id}`;
+
+        if (item.isAmazon) {
+          titleLink.href = buildAmazonSingleUrl(item.id, item.customUrl);
+        } else {
+          titleLink.href = buildEbayUrl(item.id);
+        }
+
+        details.appendChild(titleLink);
+        details.appendChild(idTag);
+
+        card.appendChild(chk);
+        card.appendChild(details);
+
+        // Render Action Buttons depending on Item Type and Count
+        if (!item.isAmazon) {
+          const itemUrl = buildEbayUrl(item.id);
+          const btn = document.createElement("a");
+          btn.href = itemUrl;
+          btn.target = "_blank";
+          btn.rel = "noopener noreferrer";
+          btn.className = `btn-item-cart ebay-btn ${isAlreadyCompleted ? 'btn-completed' : ''}`;
+          btn.textContent = isAlreadyCompleted ? 'Complete' : 'Add to Cart';
+
+          function markRowState(completed) {
+            if (completed) {
+              card.classList.add("completed");
+              btn.classList.add("btn-completed");
+              btn.textContent = "Complete";
+              chk.checked = true;
+              chk.style.display = "inline-block";
+            } else {
+              card.classList.remove("completed");
+              btn.classList.remove("btn-completed");
+              btn.textContent = "Add to Cart";
+              chk.checked = false;
+              chk.style.display = "none";
+            }
+          }
+
+          btn.addEventListener("click", () => {
+            setItemCompleted(item.id);
+            markRowState(true);
+          });
+
+          chk.addEventListener("change", (e) => {
+            const checked = e.target.checked;
+            toggleItemCompleted(item.id, checked);
+            markRowState(checked);
+          });
+
+          card.appendChild(btn);
+
+        } else if (item.isAmazon && !useMultiCart) {
+          const itemUrl = buildAmazonSingleUrl(item.id, item.customUrl);
+          const btn = document.createElement("a");
+          btn.href = itemUrl;
+          btn.target = "_blank";
+          btn.rel = "noopener noreferrer";
+          btn.className = `btn-item-cart amazon-btn ${isAlreadyCompleted ? 'btn-completed' : ''}`;
+          btn.textContent = isAlreadyCompleted ? 'Complete' : 'Add to Cart';
+
+          function markRowState(completed) {
+            if (completed) {
+              card.classList.add("completed");
+              btn.classList.add("btn-completed");
+              btn.textContent = "Complete";
+              chk.checked = true;
+              chk.style.display = "inline-block";
+            } else {
+              card.classList.remove("completed");
+              btn.classList.remove("btn-completed");
+              btn.textContent = "Add to Cart";
+              chk.checked = false;
+              chk.style.display = "none";
+            }
+          }
+
+          btn.addEventListener("click", () => {
+            setItemCompleted(item.id);
+            markRowState(true);
+          });
+
+          chk.addEventListener("change", (e) => {
+            const checked = e.target.checked;
+            toggleItemCompleted(item.id, checked);
+            markRowState(checked);
+          });
+
+          card.appendChild(btn);
+
+        } else {
+          if (isAlreadyCompleted) {
+            card.classList.add("completed");
+            chk.style.display = "inline-block";
+          }
+          chk.addEventListener("change", (e) => {
+            const checked = e.target.checked;
+            toggleItemCompleted(item.id, checked);
+            if (checked) {
+              card.classList.add("completed");
+              chk.style.display = "inline-block";
+            } else {
+              card.classList.remove("completed");
+            }
+          });
+        }
+
+        itemListContainer.appendChild(card);
+      });
+    }
+
+    function createGlitter(containerId, count = 14) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+
+      for (let i = 0; i < count; i++) {
+        const sparkle = document.createElement('div');
+        sparkle.className = 'sparkle';
+        sparkle.style.left = `${Math.random() * 100}%`;
+        sparkle.style.top = `${Math.random() * 100}%`;
+        sparkle.style.animationDelay = `${Math.random() * 3}s`;
+        sparkle.style.animationDuration = `${2 + Math.random() * 2}s`;
+        container.appendChild(sparkle);
+      }
+    }
+
+    const centerLogo = document.getElementById('bgLogoCenter');
+    if (centerLogo) {
+      document.addEventListener('mousemove', (e) => {
+        const centerRect = centerLogo.getBoundingClientRect();
+        const centerDist = Math.hypot(
+          e.clientX - (centerRect.left + centerRect.width / 2),
+          e.clientY - (centerRect.top + centerRect.height / 2)
+        );
+        const threshold = 380;
+
+        if (centerDist < threshold) {
+          const intensity = 1 - (centerDist / threshold);
+          centerLogo.style.opacity = (0.15 + (intensity * 0.6)).toString();
+          centerLogo.style.filter = `drop-shadow(0 0 ${35 + intensity * 40}px rgba(223, 186, 103, ${0.3 + intensity * 0.7})) brightness(${1 + intensity * 0.25})`;
+        } else {
+          centerLogo.style.opacity = '0.15';
+          centerLogo.style.filter = 'drop-shadow(0 0 35px rgba(223, 186, 103, 0.25)) brightness(1)';
+        }
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      createGlitter('logoGlitter', 14);
+      createGlitter('badgeGlitterChrome', 4);
+      createGlitter('badgeGlitterFirefox', 4);
+
+      if (isDemoMode) {
+        itemCountText.textContent = "Demo Collection — 10 Featured Amazon Items";
+      } else {
+        itemCountText.textContent = `${parsedItems.length} shared item${parsedItems.length > 1 ? 's' : ''} ready to view`;
+      }
+
+      resetContainer.style.display = "flex";
+      renderList();
+
+      resetAllBtn.addEventListener("click", () => {
+        sessionStorage.removeItem("cartomine_completed_items");
+        renderList();
+      });
+
+      document.querySelectorAll('.magnetic-target, .nav-link, .cart-card, .badge-card').forEach(btn => {
+        btn.addEventListener('mousemove', (e) => {
+          const rect = btn.getBoundingClientRect();
+          const x = e.clientX - rect.left - rect.width / 2;
+          const y = e.clientY - rect.top - rect.height / 2;
+
+          if (btn.classList.contains('nav-link')) {
+            btn.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
+          }
+
+          btn.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+          btn.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+        });
+
+        btn.addEventListener('mouseleave', () => {
+          btn.style.transform = 'translate(0px, 0px)';
+        });
+      });
+    });
+  </script>
+</body>
+</html>
