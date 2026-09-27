@@ -39,9 +39,9 @@
       --text-gold: #F3D99B;
       --gold-gradient: linear-gradient(135deg, #F9E4B7 0%, #DFBA67 50%, #9E7D3B 100%);
       --gold-solid: #DFBA67;
-      --amazon-gold-gradient: linear-gradient(135deg, #FBE3B5 0%, #E2C374 50%, #B89648 100%);
       --ebay-blue-gradient: linear-gradient(135deg, #0064D2 0%, #0046BE 100%);
       --ebay-blue-solid: #0064D2;
+      --amazon-gold-gradient: linear-gradient(135deg, #FBE3B5 0%, #E2C374 50%, #B89648 100%);
       --radius-lg: 12px;
       --radius-md: 8px;
     }
@@ -335,63 +335,29 @@
       text-align: center;
       font-weight: 700;
       font-family: 'Montserrat', sans-serif;
-      margin-bottom: 16px;
+      margin-bottom: 24px;
       letter-spacing: 0.3px;
     }
 
-    .instruction-banner {
-      font-size: 13px;
-      color: var(--text-gold);
-      background: rgba(223, 186, 103, 0.08);
-      border: 1px solid var(--card-border);
-      padding: 14px 18px;
-      border-radius: var(--radius-md);
-      margin-bottom: 24px;
-      line-height: 1.5;
-      text-align: center;
-    }
-
-    /* Master Amazon Multicart Banner Style */
-    .amazon-multicart-banner {
-      background: rgba(223, 186, 103, 0.12);
-      border: 1px solid var(--card-border-glow);
-      border-radius: var(--radius-md);
-      padding: 18px 20px;
-      margin-bottom: 24px;
+    /* Master Amazon Multicart Badge Style */
+    .amazon-multicart-wrapper {
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 12px;
-      text-align: center;
-      box-shadow: 0 0 20px rgba(223, 186, 103, 0.2);
+      justify-content: center;
+      margin-bottom: 28px;
     }
 
-    .amazon-multicart-text {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--text-gold);
-      font-family: 'Montserrat', sans-serif;
-    }
-
-    .btn-amazon-multicart {
+    .badge.amazon-multicart-badge {
+      background: rgba(18, 22, 31, 0.95);
+      border: 1px solid var(--card-border-glow);
       padding: 12px 28px;
-      background: var(--amazon-gold-gradient);
-      color: #000000;
-      font-weight: 800;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 13px;
-      letter-spacing: 0.4px;
-      border: 1px solid #ffffff;
-      border-radius: 25px;
-      cursor: pointer;
-      text-decoration: none;
-      box-shadow: 0 4px 15px rgba(223, 186, 103, 0.4);
-      transition: all 0.2s ease;
-      display: inline-block;
+      max-width: 380px;
+      width: 100%;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5), 0 0 25px rgba(223, 186, 103, 0.3);
     }
 
-    .btn-amazon-multicart:hover {
-      box-shadow: 0 0 25px rgba(223, 186, 103, 0.8);
+    .badge.amazon-multicart-badge:hover {
+      border-color: var(--card-border-glow);
+      box-shadow: 0 0 30px rgba(223, 186, 103, 0.75), inset 0 0 12px rgba(255, 255, 255, 0.4);
       transform: translateY(-2px);
     }
 
@@ -518,7 +484,6 @@
       transform: translateY(-1px);
     }
 
-    /* Amazon Individual Button Style */
     .btn-item-cart.amazon-btn {
       background: var(--amazon-gold-gradient);
       color: #000000;
@@ -668,12 +633,8 @@
       <div class="cart-card magnetic-target">
         <p class="subtitle" id="item-count-text">Loading shared collection...</p>
         
-        <!-- Dynamic Master Amazon Multi-Cart Banner (Visible only if 2+ Amazon items) -->
-        <div id="amazon-multicart-container" style="display:none;"></div>
-
-        <div class="instruction-banner" id="instruction-banner" style="display:none;">
-          Review your shared items below. Click individual add-to-cart buttons to process items, or use the master Amazon button above if available.
-        </div>
+        <!-- Dynamic Master Amazon Multi-Cart Badge (Visible only if 2+ Amazon items) -->
+        <div id="amazon-multicart-container" class="amazon-multicart-wrapper" style="display:none;"></div>
 
         <div class="item-list" id="item-list"></div>
 
@@ -777,7 +738,6 @@
     }).filter(item => item.id.length > 0);
 
     const itemCountText = document.getElementById("item-count-text");
-    const instructionBanner = document.getElementById("instruction-banner");
     const amazonMulticartContainer = document.getElementById("amazon-multicart-container");
     const itemListContainer = document.getElementById("item-list");
     const resetContainer = document.getElementById("reset-container");
@@ -816,18 +776,20 @@
       const amazonItems = parsedItems.filter(i => i.isAmazon);
       const useMultiCart = amazonItems.length >= 2;
 
-      // Handle Master Banner Display
+      // Handle Master Badge Display with Sparkles
       if (useMultiCart) {
-        amazonMulticartContainer.style.display = "block";
+        amazonMulticartContainer.style.display = "flex";
         const multiCartUrl = buildAmazonMultiCartUrl(amazonItems);
         amazonMulticartContainer.innerHTML = `
-          <div class="amazon-multicart-banner">
-            <div class="amazon-multicart-text">Detected ${amazonItems.length} Amazon items in this collection.</div>
-            <a href="${multiCartUrl}" target="_blank" rel="noopener noreferrer" class="btn-amazon-multicart">
-              🛒 Add All Amazon Items to Cart at Once
-            </a>
-          </div>
+          <a href="${multiCartUrl}" target="_blank" rel="noopener noreferrer" class="badge amazon-multicart-badge" id="badgeAmazonMulticart">
+            <div style="position:relative; display:inline-block;">
+              <img src="https://raw.githubusercontent.com/APEX-922/CopyMyCart/main/icon.png" alt="Cart Icon" class="badge-icon">
+              <div class="glitter-container" id="badgeGlitterAmazon" aria-hidden="true"></div>
+            </div>
+            <span>Add list to cart</span>
+          </a>
         `;
+        createGlitter('badgeGlitterAmazon', 4);
       } else {
         amazonMulticartContainer.style.display = "none";
       }
@@ -1009,7 +971,6 @@
         itemCountText.textContent = "No valid items found in this share link.";
       } else {
         itemCountText.textContent = `${parsedItems.length} shared item${parsedItems.length > 1 ? 's' : ''} ready to view`;
-        instructionBanner.style.display = "block";
         resetContainer.style.display = "flex";
 
         renderList();
