@@ -426,9 +426,9 @@
         </div>
       </a>
       <nav class="nav-links">
+        <a href="https://apex-922.github.io/CopyMyCart/index" class="nav-link">Home</a>
         <a href="https://apex-922.github.io/CopyMyCart/index#features" class="nav-link">Features</a>
         <a href="https://apex-922.github.io/CopyMyCart/index#how-it-works" class="nav-link">How It Works</a>
-        <a href="https://apex-922.github.io/CopyMyCart/holidayfinds" class="nav-link active">Holiday Finds</a>
         <a href="https://apex-922.github.io/CopyMyCart/Support" class="nav-link">Link Generator</a>
         <a href="https://apex-922.github.io/CopyMyCart/PrivacyPolicy" class="nav-link">Privacy</a>
       </nav>
@@ -436,8 +436,8 @@
 
     <main class="main-content">
       <div class="cart-card">
-        <h1 class="page-title">Curated Seasonal Collections</h1>
-        <p class="page-subtitle">Click individual items below to view our top seasonal picks directly on Amazon.</p>
+        <h1 class="page-title">Curated Seasonal Holiday Finds</h1>
+        <p class="page-subtitle">Explore top seasonal decor and essentials directly on Amazon.</p>
         
         <div id="seasonal-collections">
           <!-- Dynamically Loaded Halloween, Fall, and Christmas Collections -->
@@ -446,7 +446,7 @@
 
       <div class="cta-group">
         <div class="badge-card">
-            <span class="badge-label">Get This For Google Chrome</span>
+            <span class="badge-label">Get Extension For Google Chrome</span>
             <a href="https://chromewebstore.google.com/detail/copycart/lhnmfphjaelpcpgfjjokadcfjljgmekb?authuser=1&hl=en" class="badge-styled-btn" id="badgeLogoChrome" target="_blank" rel="noopener noreferrer">
                 <div style="position:relative; display:inline-block;">
                     <img src="https://raw.githubusercontent.com/APEX-922/CopyMyCart/main/icon.png" alt="CopyMyCart Icon" class="badge-icon">
@@ -457,7 +457,7 @@
         </div>
 
         <div class="badge-card">
-            <span class="badge-label">Get This For Mozilla Firefox</span>
+            <span class="badge-label">Get Extension For Mozilla Firefox</span>
             <a href="https://addons.mozilla.org/en-US/firefox/addon/CopyMyCart/" class="badge-styled-btn" id="badgeLogoFirefox" target="_blank" rel="noopener noreferrer">
                 <div style="position:relative; display:inline-block;">
                     <img src="https://raw.githubusercontent.com/APEX-922/CopyMyCart/main/icon.png" alt="CopyMyCart Icon" class="badge-icon">
@@ -479,14 +479,12 @@
   <script>
     const AMAZON_AFFILIATE_TAG = "apex0225-20";
 
-    // SVG ICONS matching each seasonal theme
     const ICONS = {
       pumpkin: `<svg viewBox="0 0 24 24" fill="none" stroke="#DFBA67" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v3" /><path d="M12 5c-4.418 0-8 3.134-8 7 0 4.418 3.582 7 8 7s8-2.582 8-7c0-3.866-3.582-7-8-7z" /><path d="M9 10l1.5 2L9 14" /><path d="M15 10l-1.5 2 1.5 2" /><path d="M8 16h8" /></svg>`,
       rake: `<svg viewBox="0 0 24 24" fill="none" stroke="#DFBA67" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V10" /><path d="M6 10h12" /><path d="M6 10v4" /><path d="M10 10v4" /><path d="M14 10v4" /><path d="M18 10v4" /><path d="M3 6c2-2 5-2 7 0" /><path d="M14 6c2-2 5-2 7 0" /></svg>`,
       tree: `<svg viewBox="0 0 24 24" fill="none" stroke="#DFBA67" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l-5 6h3l-4 5h3l-5 6h16l-5-6h3l-4-5h3z" /><path d="M10 22h4v-3h-4z" /></svg>`
     };
 
-    // HOLIDAY DATA DATABASE
     const SEASONS = [
       {
         id: "halloween",
