@@ -699,36 +699,58 @@
     const EPN_ROTATION_ID = "711-53200-19255-0";
     const AMAZON_ASSOCIATE_TAG = "apex0225-20";
 
-    // Demo items configuration with query search term overrides
+    function createAmazonSearchUrl(query) {
+      return `https://www.amazon.com/s?k=${encodeURIComponent(query)}&tag=${AMAZON_ASSOCIATE_TAG}`;
+    }
+
+    // Demo items configuration converted entirely into search terms using titles
     const DEMO_ITEMS = [
-      { id: "B0BP9SNVH9", title: "Fire TV Stick 4K", isAmazon: true, customUrl: null },
+      { 
+        id: "fire-tv-stick-4k", 
+        title: "Fire TV Stick 4K", 
+        isAmazon: true, 
+        isSearchTerm: true,
+        customUrl: createAmazonSearchUrl("Fire TV Stick 4K")
+      },
       { 
         id: "apple-airtag-4-pack", 
         title: "Apple AirTag 4 Pack", 
         isAmazon: true, 
         isSearchTerm: true,
-        customUrl: `https://www.amazon.com/s?k=${encodeURIComponent("Apple AirTag 4 Pack")}&tag=${AMAZON_ASSOCIATE_TAG}` 
+        customUrl: createAmazonSearchUrl("Apple AirTag 4 Pack") 
       },
-      { id: "B01MSSDEPK", title: "CeraVe Hydrating Facial Cleanser (16 oz)", isAmazon: true, customUrl: null },
+      { 
+        id: "cerave-hydrating-cleanser", 
+        title: "CeraVe Hydrating Facial Cleanser (16 oz)", 
+        isAmazon: true, 
+        isSearchTerm: true,
+        customUrl: createAmazonSearchUrl("CeraVe Hydrating Facial Cleanser (16 oz)") 
+      },
       { 
         id: "neutrogena-hydro-boost", 
         title: "Neutrogena Hydro Boost Water Gel, 24 Hr Hydration, 1.7 oz | For Normal/Oily Skin, Signature Fragrance, Face Moisturizer with Hyaluronic Acid, Skin Care for Juicy, Deeply Hydrated Skin", 
         isAmazon: true, 
         isSearchTerm: true,
-        customUrl: `https://www.amazon.com/s?k=${encodeURIComponent("Neutrogena Hydro Boost Water Gel, 24 Hr Hydration, 1.7 oz | For Normal/Oily Skin, Signature Fragrance, Face Moisturizer with Hyaluronic Acid, Skin Care for Juicy, Deeply Hydrated Skin")}&tag=${AMAZON_ASSOCIATE_TAG}` 
+        customUrl: createAmazonSearchUrl("Neutrogena Hydro Boost Water Gel, 24 Hr Hydration, 1.7 oz | For Normal/Oily Skin, Signature Fragrance, Face Moisturizer with Hyaluronic Acid, Skin Care for Juicy, Deeply Hydrated Skin") 
       },
       { 
         id: "tempered-glass", 
         title: "Tempered Glass Screen Protectors", 
         isAmazon: true, 
         isSearchTerm: true,
-        customUrl: `https://www.amazon.com/s?k=tempered+glass+screen+protector&tag=${AMAZON_ASSOCIATE_TAG}` 
+        customUrl: createAmazonSearchUrl("Tempered Glass Screen Protectors") 
       },
-      { id: "B00PBX3L7K", title: "COSRX Advanced Snail 96 Mucin Power Essence", isAmazon: true, customUrl: null }
+      { 
+        id: "cosrx-advanced-snail-96", 
+        title: "COSRX Advanced Snail 96 Mucin Power Essence", 
+        isAmazon: true, 
+        isSearchTerm: true,
+        customUrl: createAmazonSearchUrl("COSRX Advanced Snail 96 Mucin Power Essence") 
+      }
     ];
 
     function isAmazonItem(id) {
-      return (id.length === 10 && !/^\d{10,14}$/.test(id)) || id === "apple-airtag-4-pack" || id === "neutrogena-hydro-boost" || id === "tempered-glass";
+      return (id.length === 10 && !/^\d{10,14}$/.test(id)) || DEMO_ITEMS.some(item => item.id === id);
     }
 
     function buildEbayUrl(id) {
@@ -901,9 +923,9 @@
         card.appendChild(chk);
         card.appendChild(details);
 
-        // Render Action Buttons (Skip button for search terms entirely)
+        // Render Action Buttons (Skipped for search terms in demo mode)
         if (item.isSearchTerm) {
-          // No side button requested for search terms
+          // No side action button rendered for demo search items
         } else if (!item.isAmazon) {
           const itemUrl = buildEbayUrl(item.id);
           const btn = document.createElement("a");
