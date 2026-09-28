@@ -119,7 +119,7 @@
     }
 
     header {
-      padding: 40px 0 28px;
+      padding: 36px 0 24px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -127,7 +127,6 @@
       border-bottom: 1px solid var(--card-border);
       background: rgba(10, 13, 20, 0.85);
       backdrop-filter: blur(12px);
-      gap: 24px;
     }
 
     .logo {
@@ -153,34 +152,6 @@
       fill: #F3D99B !important;
     }
 
-    .nav-links {
-      display: flex;
-      gap: 12px;
-      align-items: center;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .nav-link {
-      padding: 10px 22px;
-      border-radius: 20px;
-      background: rgba(18, 22, 31, 0.6);
-      border: 1px solid var(--card-border);
-      color: var(--text-gold);
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: 600;
-      font-family: 'Montserrat', sans-serif;
-      transition: all 0.3s ease;
-    }
-
-    .nav-link:hover, .nav-link.active {
-      background: var(--gold-gradient);
-      color: #080A0F;
-      border-color: var(--card-border-glow);
-      box-shadow: 0 0 25px rgba(223, 186, 103, 0.6);
-    }
-
     .main-content {
       padding: 50px 0 60px;
     }
@@ -204,7 +175,7 @@
       border-radius: var(--radius-lg);
       padding: 40px;
       max-width: 950px;
-      margin: 0 auto 40px auto;
+      margin: 0 auto;
       box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
       position: relative;
     }
@@ -312,77 +283,6 @@
       margin-top: 4px;
     }
 
-    .badge-styled-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      padding: 12px 24px;
-      border-radius: 30px;
-      background: rgba(18, 22, 31, 0.85);
-      border: 1px solid var(--card-border);
-      color: #F3D99B !important;
-      font-size: 14px;
-      font-weight: 700;
-      font-family: 'Montserrat', sans-serif;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4), 0 0 20px rgba(223, 186, 103, 0.15);
-      text-decoration: none;
-      width: 100%;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-      cursor: pointer;
-    }
-
-    .badge-styled-btn:hover {
-      border-color: var(--card-border-glow);
-      box-shadow: 0 0 25px rgba(223, 186, 103, 0.6), inset 0 0 10px rgba(255, 255, 255, 0.4);
-      transform: translateY(-2px);
-    }
-
-    .cta-group {
-      display: flex;
-      justify-content: center;
-      align-items: stretch;
-      gap: 20px;
-      flex-wrap: wrap;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    .badge-card {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 20px 24px;
-      background: var(--card-bg);
-      backdrop-filter: blur(16px);
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius-lg);
-      position: relative;
-      overflow: hidden;
-      width: 100%;
-      max-width: 380px;
-    }
-
-    .badge-label {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 14px;
-      font-weight: 800;
-      color: #F3D99B !important;
-      margin-bottom: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      text-align: center;
-    }
-
-    .badge-icon {
-      width: 24px;
-      height: 24px;
-      object-fit: contain;
-    }
-
     footer {
       padding: 40px 0;
       border-top: 1px solid var(--card-border);
@@ -404,7 +304,7 @@
     }
 
     @media (max-width: 768px) {
-      header { padding: 30px 0 20px; gap: 18px; }
+      header { padding: 24px 0 18px; }
       .svg-logo-banner { max-height: 70px; }
       .cart-card { padding: 24px 16px; }
       .bundle-item-list { grid-template-columns: 1fr; }
@@ -438,12 +338,6 @@
           <div class="glitter-container" id="logoGlitter" aria-hidden="true"></div>
         </div>
       </a>
-      <nav class="nav-links">
-        <a href="https://apex-922.github.io/CopyMyCart/index#features" class="nav-link">Features</a>
-        <a href="https://apex-922.github.io/CopyMyCart/index#how-it-works" class="nav-link">How It Works</a>
-        <a href="https://apex-922.github.io/CopyMyCart/Support" class="nav-link">Link Generator</a>
-        <a href="https://apex-922.github.io/CopyMyCart/PrivacyPolicy" class="nav-link">Privacy</a>
-      </nav>
     </header>
 
     <main class="main-content">
@@ -457,30 +351,6 @@
         
         <div id="seasonal-collections">
           <!-- Dynamically Loaded Halloween, Fall, and Christmas Collections -->
-        </div>
-      </div>
-
-      <div class="cta-group">
-        <div class="badge-card">
-            <span class="badge-label">Get Extension For Google Chrome</span>
-            <a href="https://chromewebstore.google.com/detail/copycart/lhnmfphjaelpcpgfjjokadcfjljgmekb?authuser=1&hl=en" class="badge-styled-btn" id="badgeLogoChrome" target="_blank" rel="noopener noreferrer">
-                <div style="position:relative; display:inline-block;">
-                    <img src="https://raw.githubusercontent.com/APEX-922/CopyMyCart/main/icon.png" alt="CopyMyCart Icon" class="badge-icon">
-                    <div class="glitter-container" id="badgeGlitterChrome" aria-hidden="true"></div>
-                </div>
-                <span>CopyMyCart v2.0</span>
-            </a>
-        </div>
-
-        <div class="badge-card">
-            <span class="badge-label">Get Extension For Mozilla Firefox</span>
-            <a href="https://addons.mozilla.org/en-US/firefox/addon/CopyMyCart/" class="badge-styled-btn" id="badgeLogoFirefox" target="_blank" rel="noopener noreferrer">
-                <div style="position:relative; display:inline-block;">
-                    <img src="https://raw.githubusercontent.com/APEX-922/CopyMyCart/main/icon.png" alt="CopyMyCart Icon" class="badge-icon">
-                    <div class="glitter-container" id="badgeGlitterFirefox" aria-hidden="true"></div>
-                </div>
-                <span>CopyMyCart v2.0</span>
-            </a>
         </div>
       </div>
     </main>
@@ -606,8 +476,6 @@
 
     document.addEventListener('DOMContentLoaded', () => {
       createGlitter('logoGlitter', 14);
-      createGlitter('badgeGlitterChrome', 4);
-      createGlitter('badgeGlitterFirefox', 4);
 
       renderPage();
 
