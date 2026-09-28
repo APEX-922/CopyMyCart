@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CopyMyCart — Shared Cart Items</title>
+  <title>CopyMyCart — Shared Cart Ideas</title>
 
   <!-- HTML Meta Tags -->
   <meta name="description" content="View and add shared items directly to your cart with CopyMyCart.">
@@ -19,7 +19,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta property="twitter:domain" content="apex-922.github.io">
   <meta property="twitter:url" content="https://apex-922.github.io/CopyMyCart/">
-  <meta name="twitter:title" content="☆ CopyMyCart ☆ Someone Shared a Cart With You">
+  <meta name="twitter:title" content="☆ CopyMyCart ☆ Shared cart ideas>
   <meta name="twitter:description" content="View and add shared items directly to your cart with CopyMyCart.">
   <meta name="twitter:image" content="https://raw.githubusercontent.com/APEX-922/CopyMyCart/main/icon.png">
 
@@ -352,28 +352,6 @@
       display: none;
     }
 
-    /* Master Amazon Multicart Badge Style */
-    .amazon-multicart-wrapper {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 28px;
-    }
-
-    .badge.amazon-multicart-badge {
-      background: rgba(18, 22, 31, 0.95);
-      border: 1px solid var(--card-border-glow);
-      padding: 12px 28px;
-      max-width: 380px;
-      width: 100%;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5), 0 0 25px rgba(223, 186, 103, 0.3);
-    }
-
-    .badge.amazon-multicart-badge:hover {
-      border-color: var(--card-border-glow);
-      box-shadow: 0 0 30px rgba(223, 186, 103, 0.75), inset 0 0 12px rgba(255, 255, 255, 0.4);
-      transform: translateY(-2px);
-    }
-
     .item-list {
       display: flex;
       flex-direction: column;
@@ -467,6 +445,8 @@
       font-size: 11px;
       color: var(--text-muted);
       margin-top: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
 
     .btn-item-cart {
@@ -645,13 +625,10 @@
     <main class="main-content">
       <div class="cart-card magnetic-target">
         <p class="subtitle" id="item-count-text">Loading shared collection...</p>
-        
-        <!-- Dynamic Master Amazon Multi-Cart Badge (Visible only if 2+ Amazon items) -->
-        <div id="amazon-multicart-container" class="amazon-multicart-wrapper" style="display:none;"></div>
 
         <!-- Dynamic Instruction Banner (Shown only if eBay items are present) -->
         <div class="instruction-banner" id="instruction-banner">
-          Review your shared items below. Click individual add-to-cart buttons to process items:
+          Review your shared items below. Click individual search buttons to find items on Amazon:
         </div>
 
         <div class="item-list" id="item-list"></div>
@@ -704,7 +681,7 @@
       { id: "B0D131DTJ2", title: "Tile Mate (2024) 4-Pack Bluetooth Tracker", isAmazon: true, customUrl: null },
       { id: "B01MSSDEPK", title: "CeraVe Hydrating Facial Cleanser (16 oz)", isAmazon: true, customUrl: null },
       { id: "B00D7BZNT2", title: "CeraVe Daily Moisturizing Lotion (12 oz)", isAmazon: true, customUrl: null },
-      { id: "tempered-glass", title: "Tempered Glass Screen Protectors", isAmazon: true, customUrl: `https://www.amazon.com/s?k=tempered+glass+screen+protector&tag=${AMAZON_ASSOCIATE_TAG}` },
+      { id: "tempered-glass", title: "Tempered Glass Screen Protectors", isAmazon: true, customUrl: null },
       { id: "B00PBX3L7K", title: "COSRX Advanced Snail 96 Mucin Power Essence", isAmazon: true, customUrl: null }
     ];
 
@@ -725,21 +702,9 @@
       return `${baseUrl}?${params.toString()}`;
     }
 
-    function buildAmazonSingleUrl(asin, customUrl = null) {
-      if (customUrl) return customUrl;
-      return `https://www.amazon.com/dp/${asin}?tag=${AMAZON_ASSOCIATE_TAG}`;
-    }
-
-    function buildAmazonMultiCartUrl(amazonItems) {
-      let url = `https://www.amazon.com/gp/aws/cart/add.html?tag=${AMAZON_ASSOCIATE_TAG}&AssociateTag=${AMAZON_ASSOCIATE_TAG}`;
-      let validAsinCount = 0;
-      amazonItems.forEach((item) => {
-        if (item.id !== "tempered-glass") {
-          validAsinCount++;
-          url += `&ASIN.${validAsinCount}=${encodeURIComponent(item.id)}&Quantity.${validAsinCount}=1`;
-        }
-      });
-      return url;
+    function buildAmazonSearchUrl(queryTerm) {
+      const encodedQuery = encodeURIComponent(queryTerm);
+      return `https://www.amazon.com/s?k=${encodedQuery}&tag=${AMAZON_ASSOCIATE_TAG}`;
     }
 
     const urlParams = new URLSearchParams(window.location.search);
@@ -776,7 +741,6 @@
 
     const itemCountText = document.getElementById("item-count-text");
     const instructionBanner = document.getElementById("instruction-banner");
-    const amazonMulticartContainer = document.getElementById("amazon-multicart-container");
     const itemListContainer = document.getElementById("item-list");
     const resetContainer = document.getElementById("reset-container");
     const resetAllBtn = document.getElementById("reset-all-btn");
@@ -811,33 +775,12 @@
       itemListContainer.innerHTML = "";
       const completedIds = getCompletedItems();
 
-      const amazonItems = parsedItems.filter(i => i.isAmazon);
       const ebayItems = parsedItems.filter(i => !i.isAmazon);
-      const useMultiCart = amazonItems.length >= 2;
 
-      // Show instruction banner ONLY if there are eBay items requiring individual tracking
       if (ebayItems.length > 0) {
         instructionBanner.style.display = "block";
       } else {
         instructionBanner.style.display = "none";
-      }
-
-      // Handle Master Badge Display with Sparkles
-      if (useMultiCart) {
-        amazonMulticartContainer.style.display = "flex";
-        const multiCartUrl = buildAmazonMultiCartUrl(amazonItems);
-        amazonMulticartContainer.innerHTML = `
-          <a href="${multiCartUrl}" target="_blank" rel="noopener noreferrer" class="badge amazon-multicart-badge" id="badgeAmazonMulticart">
-            <div style="position:relative; display:inline-block;">
-              <img src="https://raw.githubusercontent.com/APEX-922/CopyMyCart/main/icon.png" alt="Cart Icon" class="badge-icon">
-              <div class="glitter-container" id="badgeGlitterAmazon" aria-hidden="true"></div>
-            </div>
-            <span>Add list to cart</span>
-          </a>
-        `;
-        createGlitter('badgeGlitterAmazon', 4);
-      } else {
-        amazonMulticartContainer.style.display = "none";
       }
 
       parsedItems.forEach((item) => {
@@ -863,11 +806,12 @@
 
         const idTag = document.createElement("div");
         idTag.className = "item-id-tag";
-        idTag.textContent = `${item.isAmazon ? (item.id === "tempered-glass" ? "SEARCH TERM" : "ASIN") : 'Item ID'}: ${item.id}`;
 
         if (item.isAmazon) {
-          titleLink.href = buildAmazonSingleUrl(item.id, item.customUrl);
+          idTag.textContent = "EXPLORE ON AMAZON";
+          titleLink.href = buildAmazonSearchUrl(item.title);
         } else {
+          idTag.textContent = `Item ID: ${item.id}`;
           titleLink.href = buildEbayUrl(item.id);
         }
 
@@ -877,100 +821,42 @@
         card.appendChild(chk);
         card.appendChild(details);
 
-        // Render Action Buttons depending on Item Type and Count
-        if (!item.isAmazon) {
-          const itemUrl = buildEbayUrl(item.id);
-          const btn = document.createElement("a");
-          btn.href = itemUrl;
-          btn.target = "_blank";
-          btn.rel = "noopener noreferrer";
-          btn.className = `btn-item-cart ebay-btn ${isAlreadyCompleted ? 'btn-completed' : ''}`;
-          btn.textContent = isAlreadyCompleted ? 'Complete' : 'Add to Cart';
+        const itemUrl = item.isAmazon ? buildAmazonSearchUrl(item.title) : buildEbayUrl(item.id);
+        const btn = document.createElement("a");
+        btn.href = itemUrl;
+        btn.target = "_blank";
+        btn.rel = "noopener noreferrer";
+        btn.className = `btn-item-cart ${item.isAmazon ? 'amazon-btn' : 'ebay-btn'} ${isAlreadyCompleted ? 'btn-completed' : ''}`;
+        btn.textContent = isAlreadyCompleted ? 'Complete' : (item.isAmazon ? 'Search Amazon' : 'Add to Cart');
 
-          function markRowState(completed) {
-            if (completed) {
-              card.classList.add("completed");
-              btn.classList.add("btn-completed");
-              btn.textContent = "Complete";
-              chk.checked = true;
-              chk.style.display = "inline-block";
-            } else {
-              card.classList.remove("completed");
-              btn.classList.remove("btn-completed");
-              btn.textContent = "Add to Cart";
-              chk.checked = false;
-              chk.style.display = "none";
-            }
-          }
-
-          btn.addEventListener("click", () => {
-            setItemCompleted(item.id);
-            markRowState(true);
-          });
-
-          chk.addEventListener("change", (e) => {
-            const checked = e.target.checked;
-            toggleItemCompleted(item.id, checked);
-            markRowState(checked);
-          });
-
-          card.appendChild(btn);
-
-        } else if (item.isAmazon && !useMultiCart) {
-          const itemUrl = buildAmazonSingleUrl(item.id, item.customUrl);
-          const btn = document.createElement("a");
-          btn.href = itemUrl;
-          btn.target = "_blank";
-          btn.rel = "noopener noreferrer";
-          btn.className = `btn-item-cart amazon-btn ${isAlreadyCompleted ? 'btn-completed' : ''}`;
-          btn.textContent = isAlreadyCompleted ? 'Complete' : 'Add to Cart';
-
-          function markRowState(completed) {
-            if (completed) {
-              card.classList.add("completed");
-              btn.classList.add("btn-completed");
-              btn.textContent = "Complete";
-              chk.checked = true;
-              chk.style.display = "inline-block";
-            } else {
-              card.classList.remove("completed");
-              btn.classList.remove("btn-completed");
-              btn.textContent = "Add to Cart";
-              chk.checked = false;
-              chk.style.display = "none";
-            }
-          }
-
-          btn.addEventListener("click", () => {
-            setItemCompleted(item.id);
-            markRowState(true);
-          });
-
-          chk.addEventListener("change", (e) => {
-            const checked = e.target.checked;
-            toggleItemCompleted(item.id, checked);
-            markRowState(checked);
-          });
-
-          card.appendChild(btn);
-
-        } else {
-          if (isAlreadyCompleted) {
+        function markRowState(completed) {
+          if (completed) {
             card.classList.add("completed");
+            btn.classList.add("btn-completed");
+            btn.textContent = "Complete";
+            chk.checked = true;
             chk.style.display = "inline-block";
+          } else {
+            card.classList.remove("completed");
+            btn.classList.remove("btn-completed");
+            btn.textContent = item.isAmazon ? 'Search Amazon' : 'Add to Cart';
+            chk.checked = false;
+            chk.style.display = "none";
           }
-          chk.addEventListener("change", (e) => {
-            const checked = e.target.checked;
-            toggleItemCompleted(item.id, checked);
-            if (checked) {
-              card.classList.add("completed");
-              chk.style.display = "inline-block";
-            } else {
-              card.classList.remove("completed");
-            }
-          });
         }
 
+        btn.addEventListener("click", () => {
+          setItemCompleted(item.id);
+          markRowState(true);
+        });
+
+        chk.addEventListener("change", (e) => {
+          const checked = e.target.checked;
+          toggleItemCompleted(item.id, checked);
+          markRowState(checked);
+        });
+
+        card.appendChild(btn);
         itemListContainer.appendChild(card);
       });
     }
