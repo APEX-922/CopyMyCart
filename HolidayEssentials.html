@@ -3,24 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CopyMyCart — Seasonal Holiday Collections</title>
+  <title>CopyMyCart — Seasonal Holiday Collections & Decor Essentials</title>
 
   <!-- HTML Meta Tags -->
-  <meta name="description" content="Discover curated seasonal shopping favorites directly on Amazon with CopyMyCart.">
+  <meta name="description" content="Explore top seasonal holiday essentials, Halloween decor, fall ideas, Christmas lists, and holiday shopping collections directly on Amazon with CopyMyCart.">
 
   <!-- Facebook Meta Tags / Open Graph -->
   <meta property="og:url" content="https://apex-922.github.io/CopyMyCart/HolidayEssentials">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="☆ CopyMyCart ☆ Seasonal Holiday Collections">
-  <meta property="og:description" content="Discover curated seasonal shopping favorites directly on Amazon with CopyMyCart.">
+  <meta property="og:title" content="☆ CopyMyCart ☆ Seasonal Holiday Collections & Decor Essentials">
+  <meta property="og:description" content="Explore top seasonal holiday essentials, Halloween decor, fall ideas, Christmas lists, and holiday shopping collections directly on Amazon with CopyMyCart.">
   <meta property="og:image" content="https://raw.githubusercontent.com/APEX-922/CopyMyCart/main/icon.png">
 
   <!-- Twitter Meta Tags -->
   <meta name="twitter:card" content="summary_large_image">
   <meta property="twitter:domain" content="apex-922.github.io">
   <meta property="twitter:url" content="https://apex-922.github.io/CopyMyCart/HolidayEssentials">
-  <meta name="twitter:title" content="☆ CopyMyCart ☆ Seasonal Holiday Collections">
-  <meta name="twitter:description" content="Discover curated seasonal shopping favorites directly on Amazon with CopyMyCart.">
+  <meta name="twitter:title" content="☆ CopyMyCart ☆ Seasonal Holiday Collections & Decor Essentials">
+  <meta name="twitter:description" content="Explore top seasonal holiday essentials, Halloween decor, fall ideas, Christmas lists, and holiday shopping collections directly on Amazon with CopyMyCart.">
   <meta name="twitter:image" content="https://raw.githubusercontent.com/APEX-922/CopyMyCart/main/icon.png">
 
   <!-- Canonical Link for SEO -->
@@ -31,6 +31,29 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800;900&family=Inter:wght@300;400;500;600;700&display=swap">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Schema.org Structured Data (JSON-LD) for SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Seasonal Holiday Collections & Decor Essentials",
+    "description": "Curated holiday essentials and shopping lists for Halloween decor, fall ideas, and Christmas gift specials.",
+    "url": "https://apex-922.github.io/CopyMyCart/HolidayEssentials",
+    "about": [
+      "holiday essientials",
+      "halloween",
+      "christmas",
+      "fall",
+      "halloween decor",
+      "fall ideas",
+      "fall decor",
+      "christmas decor",
+      "christmas list",
+      "christmas essientials"
+    ]
+  }
+  </script>
 
   <style>
     :root {
@@ -223,12 +246,20 @@
       color: var(--text-gold);
       border-bottom: 1px solid var(--card-border);
       padding-bottom: 12px;
-      margin-bottom: 24px;
+      margin-bottom: 16px;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
       gap: 10px;
+    }
+
+    .season-description {
+      font-size: 14px;
+      color: var(--text-muted);
+      text-align: center;
+      margin-bottom: 24px;
+      line-height: 1.5;
     }
 
     .bundle-item-list {
@@ -338,8 +369,8 @@
 
       <!-- Introduction Card -->
       <div class="cart-card intro-card">
-        <h1 class="page-title">Curated Seasonal Holiday Collections</h1>
-        <p class="page-subtitle">Explore top seasonal decor and essentials directly on Amazon.</p>
+        <h1 class="page-title">Curated Seasonal Holiday Collections & Decor</h1>
+        <p class="page-subtitle">Find top-rated holiday essentials, seasonal ideas, and party decor directly on Amazon.</p>
       </div>
 
       <!-- Container for Separate Seasonal Cards -->
@@ -361,6 +392,7 @@
       {
         id: "halloween",
         title: "🎃 Halloween Favorites 🎃",
+        description: "Get ready for spooktacular Halloween celebrations with top-rated halloween decor, outdoor decorations, spooky party favors, and costume essentials.",
         items: [
           { title: "Outdoor Pumpkin String Lights", query: "Outdoor Pumpkin String Lights" },
           { title: "Giant Outdoor Spider Web Decorations", query: "Giant Outdoor Spider Web Decor" },
@@ -387,6 +419,7 @@
       {
         id: "fall",
         title: "🍂 Fall Essentials 🍂",
+        description: "Transform your home with warm fall decor, autumnal harvest accents, cozy home essentials, and Thanksgiving centerpiece ideas.",
         items: [
           { title: "Heavy-Duty Garden Lawn Rake", query: "Heavy Duty Garden Lawn Rake" },
           { title: "Artificial Fall Maple Leaf Garland", query: "Artificial Fall Maple Leaf Garland" },
@@ -413,6 +446,7 @@
       {
         id: "christmas",
         title: "🎄 Christmas Specials 🎄",
+        description: "Build your ultimate Christmas list with essential indoor and outdoor christmas decor, tree ornaments, holiday string lights, and festive gift specials.",
         items: [
           { title: "Pre-Lit Artificial Christmas Tree", query: "Pre Lit Artificial Christmas Tree" },
           { title: "Shatterproof Christmas Tree Ornaments", query: "Shatterproof Christmas Tree Ornaments" },
@@ -448,6 +482,7 @@
 
         card.innerHTML = `
           <h2 class="season-header">${season.title}</h2>
+          <p class="season-description">${season.description}</p>
           <ul class="bundle-item-list">
             ${season.items.map(item => {
               const amazonUrl = `https://www.amazon.com/s?k=${encodeURIComponent(item.query)}&tag=${AMAZON_AFFILIATE_TAG}`;
