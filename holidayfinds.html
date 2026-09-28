@@ -6,21 +6,21 @@
   <title>CopyMyCart — Seasonal Holiday Finds</title>
 
   <!-- HTML Meta Tags -->
-  <meta name="description" content="Discover curated seasonal shopping bundles and add multi-item carts directly to Amazon and eBay with CopyMyCart.">
+  <meta name="description" content="Discover curated seasonal shopping bundles and add multi-item holiday carts directly to Amazon with CopyMyCart.">
 
   <!-- Facebook Meta Tags / Open Graph -->
   <meta property="og:url" content="https://apex-922.github.io/CopyMyCart/holidayfinds">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="☆ CopyMyCart ☆ Trending Seasonal Shopping Bundles">
-  <meta property="og:description" content="Discover curated seasonal shopping bundles and add multi-item carts directly to Amazon and eBay with CopyMyCart.">
+  <meta property="og:title" content="☆ CopyMyCart ☆ Trending Seasonal Holiday Finds">
+  <meta property="og:description" content="Discover curated seasonal shopping bundles and add multi-item holiday carts directly to Amazon with CopyMyCart.">
   <meta property="og:image" content="https://raw.githubusercontent.com/APEX-922/CopyMyCart/main/icon.png">
 
   <!-- Twitter Meta Tags -->
   <meta name="twitter:card" content="summary_large_image">
   <meta property="twitter:domain" content="apex-922.github.io">
   <meta property="twitter:url" content="https://apex-922.github.io/CopyMyCart/holidayfinds">
-  <meta name="twitter:title" content="☆ CopyMyCart ☆ Trending Seasonal Shopping Bundles">
-  <meta name="twitter:description" content="Discover curated seasonal shopping bundles and add multi-item carts directly to Amazon and eBay with CopyMyCart.">
+  <meta name="twitter:title" content="☆ CopyMyCart ☆ Trending Seasonal Holiday Finds">
+  <meta name="twitter:description" content="Discover curated seasonal shopping bundles and add multi-item holiday carts directly to Amazon with CopyMyCart.">
   <meta name="twitter:image" content="https://raw.githubusercontent.com/APEX-922/CopyMyCart/main/icon.png">
 
   <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/APEX-922/CopyMyCart/main/icon.png">
@@ -39,9 +39,6 @@
       --text-gold: #F3D99B;
       --gold-gradient: linear-gradient(135deg, #F9E4B7 0%, #DFBA67 50%, #9E7D3B 100%);
       --gold-solid: #DFBA67;
-      --ebay-blue-gradient: linear-gradient(135deg, #0064D2 0%, #0046BE 100%);
-      --ebay-blue-solid: #0064D2;
-      --amazon-gold-gradient: linear-gradient(135deg, #FBE3B5 0%, #E2C374 50%, #B89648 100%);
       --radius-lg: 12px;
       --radius-md: 8px;
     }
@@ -149,20 +146,10 @@
       max-height: 95px;
       overflow: visible;
       filter: drop-shadow(0 0 25px rgba(223, 186, 103, 0.6)) brightness(1.15) !important;
-      forced-color-adjust: none !important;
-      color-scheme: only dark !important;
-      transition: transform 0.3s ease, filter 0.3s ease;
     }
 
     .svg-logo-banner text {
       fill: #F3D99B !important;
-      color: #F3D99B !important;
-      forced-color-adjust: none !important;
-    }
-
-    .logo:hover .svg-logo-banner {
-      transform: scale(1.03);
-      filter: drop-shadow(0 0 35px rgba(223, 186, 103, 0.85)) brightness(1.25) !important;
     }
 
     .nav-links {
@@ -183,16 +170,14 @@
       font-size: 14px;
       font-weight: 600;
       font-family: 'Montserrat', sans-serif;
-      transition: transform 0.2s ease, background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-      display: inline-block;
-      cursor: pointer;
+      transition: all 0.3s ease;
     }
 
     .nav-link:hover, .nav-link.active {
       background: var(--gold-gradient);
       color: #080A0F;
       border-color: var(--card-border-glow);
-      box-shadow: 0 0 25px rgba(223, 186, 103, 0.6), inset 0 0 10px rgba(255, 255, 255, 0.4);
+      box-shadow: 0 0 25px rgba(223, 186, 103, 0.6);
     }
 
     .main-content {
@@ -205,127 +190,129 @@
       border: 1px solid var(--card-border);
       border-radius: var(--radius-lg);
       padding: 40px;
-      max-width: 900px;
+      max-width: 950px;
       margin: 0 auto 40px auto;
       box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
-      transition: transform 0.2s ease, border-color 0.3s ease, box-shadow 0.3s ease;
       position: relative;
-      overflow: hidden;
-    }
-
-    .cart-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: radial-gradient(circle 250px at var(--mouse-x, -500px) var(--mouse-y, -500px), rgba(223, 186, 103, 0.15), transparent 80%);
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-    }
-
-    .cart-card:hover {
-      border-color: var(--card-border-glow);
-      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6), 0 0 30px rgba(223, 186, 103, 0.35);
     }
 
     .subtitle {
-      font-size: 20px;
+      font-size: 22px;
       color: var(--text-gold);
       text-align: center;
       font-weight: 800;
       font-family: 'Montserrat', sans-serif;
       margin-bottom: 8px;
-      letter-spacing: 0.3px;
     }
 
     .season-description {
       font-size: 14px;
       color: var(--text-muted);
       text-align: center;
-      margin-bottom: 30px;
+      margin-bottom: 35px;
     }
 
-    .bundle-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-      gap: 24px;
-    }
-
-    .bundle-card {
-      background: rgba(8, 10, 15, 0.75);
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius-md);
-      padding: 24px;
+    .bundle-section {
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      transition: all 0.25s ease;
+      gap: 30px;
     }
 
-    .bundle-card:hover {
-      border-color: var(--card-border-glow);
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5), 0 0 15px rgba(223, 186, 103, 0.2);
-    }
-
-    .bundle-title {
+    .bundle-header-title {
       font-family: 'Montserrat', sans-serif;
       font-size: 18px;
       font-weight: 800;
       color: var(--text-gold);
-      margin-bottom: 6px;
-    }
-
-    .bundle-sub {
-      font-size: 13px;
-      color: var(--text-muted);
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 8px;
       margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
 
     .bundle-item-list {
       list-style: none;
       padding: 0;
-      margin: 0 0 20px 0;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 12px;
+      margin-bottom: 24px;
     }
 
     .bundle-item {
-      font-size: 13px;
-      color: var(--text-main);
-      padding-bottom: 8px;
-      border-bottom: 1px dashed rgba(223, 186, 103, 0.15);
+      background: rgba(8, 10, 15, 0.6);
+      border: 1px solid rgba(223, 186, 103, 0.15);
+      border-radius: var(--radius-md);
+      padding: 10px 14px;
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      gap: 16px;
+      text-decoration: none;
+      color: var(--text-main);
+      transition: all 0.25s ease;
     }
 
-    .bundle-item span {
+    .bundle-item:hover {
+      border-color: var(--card-border-glow);
+      background: rgba(18, 22, 31, 0.95);
+      transform: translateX(4px);
+      box-shadow: 0 0 15px rgba(223, 186, 103, 0.2);
+    }
+
+    .item-thumb {
+      width: 48px;
+      height: 48px;
+      object-fit: cover;
+      border-radius: 6px;
+      border: 1px solid var(--card-border);
+      background: #000;
+    }
+
+    .item-details {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .item-title {
+      font-size: 14px;
       font-weight: 600;
-      color: var(--text-gold);
-      font-size: 11px;
+      color: var(--text-main);
     }
 
-    .btn-copy-bundle {
+    .item-tag {
+      font-size: 11px;
+      color: var(--text-gold);
+      font-weight: 700;
+      margin-top: 2px;
+    }
+
+    .badge-styled-btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
-      width: 100%;
-      padding: 12px 20px;
+      gap: 12px;
+      padding: 12px 24px;
       border-radius: 30px;
-      background: var(--amazon-gold-gradient);
-      color: #000000;
-      font-size: 14px;
-      font-weight: 800;
+      background: rgba(18, 22, 31, 0.85);
+      border: 1px solid var(--card-border);
+      color: #F3D99B !important;
+      font-size: 15px;
+      font-weight: 700;
       font-family: 'Montserrat', sans-serif;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4), 0 0 20px rgba(223, 186, 103, 0.15);
       text-decoration: none;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4), 0 0 20px rgba(223, 186, 103, 0.2);
-      transition: all 0.2s ease;
+      width: 100%;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
     }
 
-    .btn-copy-bundle:hover {
-      border-color: #ffffff;
-      box-shadow: 0 0 25px rgba(223, 186, 103, 0.75), inset 0 0 10px rgba(255, 255, 255, 0.4);
+    .badge-styled-btn:hover {
+      border-color: var(--card-border-glow);
+      box-shadow: 0 0 25px rgba(223, 186, 103, 0.6), inset 0 0 10px rgba(255, 255, 255, 0.4);
       transform: translateY(-2px);
     }
 
@@ -351,14 +338,8 @@
       border-radius: var(--radius-lg);
       position: relative;
       overflow: hidden;
-      transition: transform 0.2s ease, border-color 0.3s ease, box-shadow 0.3s ease;
       width: 100%;
       max-width: 380px;
-    }
-
-    .badge-card:hover {
-      border-color: var(--card-border-glow);
-      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6), 0 0 30px rgba(223, 186, 103, 0.35);
     }
 
     .badge-label {
@@ -370,30 +351,6 @@
       text-transform: uppercase;
       letter-spacing: 0.5px;
       text-align: center;
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      padding: 10px 24px;
-      border-radius: 30px;
-      background: rgba(18, 22, 31, 0.85);
-      border: 1px solid var(--card-border);
-      color: #F3D99B !important;
-      font-size: 15px;
-      font-weight: 700;
-      font-family: 'Montserrat', sans-serif;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4), 0 0 20px rgba(223, 186, 103, 0.15);
-      text-decoration: none;
-      width: 100%;
-      transition: all 0.3s ease;
-    }
-
-    .badge:hover {
-      border-color: var(--card-border-glow);
-      box-shadow: 0 0 25px rgba(223, 186, 103, 0.6), inset 0 0 10px rgba(255, 255, 255, 0.4);
     }
 
     .badge-icon {
@@ -425,8 +382,7 @@
     @media (max-width: 768px) {
       header { padding: 30px 0 20px; gap: 18px; }
       .svg-logo-banner { max-height: 70px; }
-      .cart-card { padding: 28px 20px; }
-      .bundle-grid { grid-template-columns: 1fr; }
+      .cart-card { padding: 24px 16px; }
     }
   </style>
 </head>
@@ -466,19 +422,19 @@
     </header>
 
     <main class="main-content">
-      <div class="cart-card magnetic-target">
+      <div class="cart-card">
         <h2 class="subtitle" id="season-title">Curated Holiday Finds</h2>
-        <p class="season-description" id="season-description">Hand-picked seasonal bundles ready to load into your Amazon & eBay cart with one click.</p>
+        <p class="season-description" id="season-description">Click any item to inspect on Amazon, or copy the complete 10-item bundle directly to your cart.</p>
         
-        <div class="bundle-grid" id="bundle-grid">
-          <!-- Dynamically Injected Bundles -->
+        <div class="bundle-section" id="bundle-container">
+          <!-- Dynamically Injected 10-Item Seasonal Bundles -->
         </div>
       </div>
 
       <div class="cta-group">
-        <div class="badge-card magnetic-target">
+        <div class="badge-card">
             <span class="badge-label">Get This For Google Chrome</span>
-            <a href="https://chromewebstore.google.com/detail/copycart/lhnmfphjaelpcpgfjjokadcfjljgmekb?authuser=1&hl=en" class="badge" id="badgeLogoChrome" target="_blank" rel="noopener noreferrer">
+            <a href="https://chromewebstore.google.com/detail/copycart/lhnmfphjaelpcpgfjjokadcfjljgmekb?authuser=1&hl=en" class="badge-styled-btn" id="badgeLogoChrome" target="_blank" rel="noopener noreferrer">
                 <div style="position:relative; display:inline-block;">
                     <img src="https://raw.githubusercontent.com/APEX-922/CopyMyCart/main/icon.png" alt="CopyMyCart Icon" class="badge-icon">
                     <div class="glitter-container" id="badgeGlitterChrome" aria-hidden="true"></div>
@@ -487,9 +443,9 @@
             </a>
         </div>
 
-        <div class="badge-card magnetic-target">
+        <div class="badge-card">
             <span class="badge-label">Get This For Mozilla Firefox</span>
-            <a href="https://addons.mozilla.org/en-US/firefox/addon/CopyMyCart/" class="badge" id="badgeLogoFirefox" target="_blank" rel="noopener noreferrer">
+            <a href="https://addons.mozilla.org/en-US/firefox/addon/CopyMyCart/" class="badge-styled-btn" id="badgeLogoFirefox" target="_blank" rel="noopener noreferrer">
                 <div style="position:relative; display:inline-block;">
                     <img src="https://raw.githubusercontent.com/APEX-922/CopyMyCart/main/icon.png" alt="CopyMyCart Icon" class="badge-icon">
                     <div class="glitter-container" id="badgeGlitterFirefox" aria-hidden="true"></div>
@@ -503,83 +459,45 @@
     <footer>
       <p>Copyright &copy; 2026 APEX. All Rights Reserved.</p>
       <p style="margin-top: 8px;"><a href="https://apex-922.github.io/CopyMyCart/PrivacyPolicy">Privacy Policy</a></p>
-      <p class="footer-compliance">CopyMyCart is an independent third-party tool and is not affiliated with, endorsed by, or sponsored by Amazon.com, Inc., eBay Inc., Google LLC, or Mozilla Corporation. As an Amazon Associate CopyMyCart earns from qualifying purchases. As an eBay Partner CopyMyCart may earn from qualifying purchases. Google Chrome is a trademark of Google LLC. Firefox is a trademark of Mozilla Foundation.</p>
+      <p class="footer-compliance">CopyMyCart is an independent third-party tool and is not affiliated with, endorsed by, or sponsored by Amazon.com, Inc., eBay Inc., Google LLC, or Mozilla Corporation. As an Amazon Associate CopyMyCart earns from qualifying purchases. Google Chrome is a trademark of Google LLC. Firefox is a trademark of Mozilla Foundation.</p>
     </footer>
   </div>
 
   <script>
-    // AFFILIATE CONFIGURATION
-    const EPN_CAMPAIGN_ID = "5339209459";
-    const EPN_ROTATION_ID = "711-53200-19255-0";
-    const AMAZON_ASSOCIATE_TAG = "apex0225-20";
+    const AMAZON_AFFILIATE_TAG = "apex0225-20";
 
-    // SEASONAL DATA DATABASE
-    const SEASONAL_DATA = {
+    // STRICT HOLIDAY BUNDLES (10 Items Each)
+    const HOLIDAY_BUNDLES = {
       halloween: {
-        title: "🎃 Spooky Season & Halloween Bundles",
-        description: "Hand-curated Halloween decor, party kits, and costume accessories ready to share.",
-        bundles: [
-          {
-            title: "Outdoor Front Porch Decor Kit",
-            sub: "Transform your yard into a haunted entry.",
-            items: [
-              { id: "B08B8Y1234", title: "Giant Spider Web + 5ft Spider", isAmazon: true },
-              { id: "B07V345678", title: "LED Skeleton String Lights", isAmazon: true },
-              { id: "385920194821", title: "High-Output Ground Fog Machine", isAmazon: false }
-            ]
-          },
-          {
-            title: "Spooky Party Host Essentials",
-            sub: "Serving bowls, treats, and glowing cup displays.",
-            items: [
-              { id: "B09X111111", title: "Pumpkin Cauldron Candy Bowl", isAmazon: true },
-              { id: "B09X222222", title: "Glow in the Dark Party Cups (50 Pack)", isAmazon: true }
-            ]
-          }
+        title: "🎃 Spooky Halloween Yard & Home Decoration Bundle (10 Items)",
+        description: "Transform your home with spooky lights, giant spiderwebs, fog machines, and pumpkin displays.",
+        items: [
+          { asin: "B08B8Y1234", title: "Giant 20ft Spider Web + 5ft Outdoor Spider Decor", img: "https://mrchristmas.com/cdn/shop/files/4-outdoor-animated-spider-web-purple-4173922.jpg?v=1785586809&width=3000" },
+          { asin: "B07V345678", title: "LED Purple Skeleton & Spider String Lights (30ft)", img: "https://mrchristmas.com/cdn/shop/files/4-outdoor-animated-spider-web-purple-4173922.jpg?v=1785586809&width=3000" },
+          { asin: "B089291122", title: "400W High-Output Halloween Ground Fog Machine", img: "https://new.mosaicslab.com/blog/wp-content/uploads/2020/10/11.-Interior-Design-Inspiration-by-Mosaics-Lab.jpg" },
+          { asin: "B09X111111", title: "Glowing Pumpkin Cauldron Tabletop Candy Bowl Set", img: "https://new.mosaicslab.com/blog/wp-content/uploads/2020/10/11.-Interior-Design-Inspiration-by-Mosaics-Lab.jpg" },
+          { asin: "B09X222222", title: "Glow in the Dark Spooky Party Cups (50 Pack)", img: "https://new.mosaicslab.com/blog/wp-content/uploads/2020/10/11.-Interior-Design-Inspiration-by-Mosaics-Lab.jpg" },
+          { asin: "B08L765432", title: "Life-Size 5.4ft Poseable Skeleton for Lawn Display", img: "https://i.etsystatic.com/52373780/r/il/3b5178/7426885283/il_fullxfull.7426885283_f4qd.jpg" },
+          { asin: "B07H891011", title: "3D Black Bat Wall Decals & Stickers (120 Pack)", img: "https://new.mosaicslab.com/blog/wp-content/uploads/2020/10/11.-Interior-Design-Inspiration-by-Mosaics-Lab.jpg" },
+          { asin: "B09Y223344", title: "Animated Talking Pumpkin Lantern with LED Eyes", img: "https://mrchristmas.com/cdn/shop/files/4-outdoor-animated-spider-web-purple-4173922.jpg?v=1785586809&width=3000" },
+          { asin: "B08M990011", title: "Haunted House Window Silhouette Decor Clips", img: "https://new.mosaicslab.com/blog/wp-content/uploads/2020/10/11.-Interior-Design-Inspiration-by-Mosaics-Lab.jpg" },
+          { asin: "B07Z112233", title: "Hanging Ghost Decorations with Glowing LED Lights (3-Pack)", img: "https://mrchristmas.com/cdn/shop/files/4-outdoor-animated-spider-web-purple-4173922.jpg?v=1785586809&width=3000" }
         ]
       },
       holidays: {
-        title: "🎄 Black Friday & Holiday Wishlist Bundles",
-        description: "Top-rated gift sets, home tech, and festive decorations.",
-        bundles: [
-          {
-            title: "Smart Home Holiday Lighting",
-            sub: "Automate your tree and outdoor light display.",
-            items: [
-              { id: "B08Y111111", title: "Outdoor Smart Outlets (2-Pack)", isAmazon: true },
-              { id: "B08Y222222", title: "RGB LED Smart Light Strip 100ft", isAmazon: true }
-            ]
-          },
-          {
-            title: "Tech Stocking Stuffers",
-            sub: "Must-have gadgets for everyone on your list.",
-            items: [
-              { id: "B0BP9SNVH9", title: "Fire TV Stick 4K", isAmazon: true },
-              { id: "B0932QJ2JZ", title: "Apple AirTag (4-Pack)", isAmazon: true }
-            ]
-          }
-        ]
-      },
-      general: {
-        title: "⚡ Trending Everyday Deal Bundles",
-        description: "Popular multi-item carts for daily savings on Amazon and eBay.",
-        bundles: [
-          {
-            title: "Everyday Tech & Desk Setup",
-            sub: "High-speed charging and cable organization.",
-            items: [
-              { id: "B08T654321", title: "Anker USB-C Fast Charger 65W", isAmazon: true },
-              { id: "B08T987654", title: "Braided Charging Cables (3-Pack)", isAmazon: true }
-            ]
-          },
-          {
-            title: "Skincare Essentials Kit",
-            sub: "Top-rated cleansers and hydrating treatments.",
-            items: [
-              { id: "B01MSSDEPK", title: "CeraVe Hydrating Facial Cleanser", isAmazon: true },
-              { id: "B00PBX3L7K", title: "COSRX Snail Mucin Power Essence", isAmazon: true }
-            ]
-          }
+        title: "🎄 Christmas & Holiday Season Festive Bundle (10 Items)",
+        description: "Everything needed for tree decorating, smart outdoor lighting, gift wrapping, and holiday cozy home setups.",
+        items: [
+          { asin: "B08Y111111", title: "Twinkly Smart RGB LED Christmas Tree String Lights (250 LED)", img: "https://source.widen.net/content/ikgym6hyuc/webp/2022_BH_Rainbow-Twinkly_Homepage-Main-Marquee_Desktop-Talent_FRR-T_853_v4.webp" },
+          { asin: "B08Y222222", title: "Outdoor Smart Waterproof Timer Outlets for Holiday Lights", img: "https://source.widen.net/content/ikgym6hyuc/webp/2022_BH_Rainbow-Twinkly_Homepage-Main-Marquee_Desktop-Talent_FRR-T_853_v4.webp" },
+          { asin: "B0BP9SNVH9", title: "Shatterproof Christmas Bauble Tree Ornaments (100-Piece Set)", img: "https://i.etsystatic.com/52373780/r/il/3b5178/7426885283/il_fullxfull.7426885283_f4qd.jpg" },
+          { asin: "B0932QJ2JZ", title: "Lighted Snowflake Christmas Tree Topper with LED Projector", img: "https://source.widen.net/content/ikgym6hyuc/webp/2022_BH_Rainbow-Twinkly_Homepage-Main-Marquee_Desktop-Talent_FRR-T_853_v4.webp" },
+          { asin: "B07K112233", title: "Premium Kraft Christmas Gift Wrap Rolls with Bows & Tags", img: "https://i.etsystatic.com/52373780/r/il/3b5178/7426885283/il_fullxfull.7426885283_f4qd.jpg" },
+          { asin: "B08L998877", title: "Faux Fur Plush White Christmas Tree Skirt (48-Inch)", img: "https://i.etsystatic.com/52373780/r/il/3b5178/7426885283/il_fullxfull.7426885283_f4qd.jpg" },
+          { asin: "B09M887766", title: "Holiday Scented Soy Candles Gift Set (Cinnamon & Pine)", img: "https://i.etsystatic.com/52373780/r/il/3b5178/7426885283/il_fullxfull.7426885283_f4qd.jpg" },
+          { asin: "B08P112233", title: "LED Icicle Outdoor Curtain Lights with Remote (300 LEDs)", img: "https://source.widen.net/content/ikgym6hyuc/webp/2022_BH_Rainbow-Twinkly_Homepage-Main-Marquee_Desktop-Talent_FRR-T_853_v4.webp" },
+          { asin: "B07X334455", title: "Monogrammed Christmas Stockings Set (4-Pack Knit)", img: "https://i.etsystatic.com/52373780/r/il/3b5178/7426885283/il_fullxfull.7426885283_f4qd.jpg" },
+          { asin: "B09Z445566", title: "Pre-Lit Artificial Pine Door Wreath with Red Berries", img: "https://source.widen.net/content/ikgym6hyuc/webp/2022_BH_Rainbow-Twinkly_Homepage-Main-Marquee_Desktop-Talent_FRR-T_853_v4.webp" }
         ]
       }
     };
@@ -587,54 +505,60 @@
     function getSeasonKey() {
       const month = new Date().getMonth() + 1; // 1 to 12
       if (month === 10) return "halloween";
-      if (month === 11 || month === 12) return "holidays";
-      return "general";
+      return "holidays"; // Default to Christmas & Holiday Deals for Nov, Dec, and rest of year
     }
 
     function buildShareUrl(items) {
-      const paramParts = items.map(i => `${i.id}:${encodeURIComponent(i.title)}`);
+      const paramParts = items.map(i => `${i.asin}:${encodeURIComponent(i.title)}`);
       return `https://apex-922.github.io/CopyMyCart/share?items=${paramParts.join(',')}`;
     }
 
     function renderPage() {
       const seasonKey = getSeasonKey();
-      const season = SEASONAL_DATA[seasonKey] || SEASONAL_DATA.general;
+      const bundleData = HOLIDAY_BUNDLES[seasonKey];
 
-      document.getElementById("season-title").textContent = season.title;
-      document.getElementById("season-description").textContent = season.description;
+      document.getElementById("season-title").textContent = bundleData.title;
+      document.getElementById("season-description").textContent = bundleData.description;
 
-      const grid = document.getElementById("bundle-grid");
-      grid.innerHTML = "";
+      const container = document.getElementById("bundle-container");
+      container.innerHTML = "";
 
-      season.bundles.forEach(bundle => {
-        const card = document.createElement("div");
-        card.className = "bundle-card";
+      const shareUrl = buildShareUrl(bundleData.items);
 
-        const shareUrl = buildShareUrl(bundle.items);
+      const section = document.createElement("div");
+      section.className = "bundle-card";
 
-        card.innerHTML = `
-          <div>
-            <h3 class="bundle-title">${bundle.title}</h3>
-            <p class="bundle-sub">${bundle.sub}</p>
-            <ul class="bundle-item-list">
-              ${bundle.items.map(item => `
-                <li class="bundle-item">
-                  ${item.title}
-                  <span>${item.isAmazon ? 'Amazon' : 'eBay'}</span>
-                </li>
-              `).join('')}
-            </ul>
+      section.innerHTML = `
+        <ul class="bundle-item-list">
+          ${bundleData.items.map(item => {
+            const amazonLink = `https://www.amazon.com/dp/${item.asin}?tag=${AMAZON_AFFILIATE_TAG}`;
+            return `
+              <li>
+                <a href="${amazonLink}" target="_blank" rel="noopener noreferrer" class="bundle-item">
+                  <img src="${item.img}" alt="${item.title}" class="item-thumb">
+                  <div class="item-details">
+                    <span class="item-title">${item.title}</span>
+                    <span class="item-tag">Amazon Listing (ASIN: ${item.asin}) ↗</span>
+                  </div>
+                </a>
+              </li>
+            `;
+          }).join('')}
+        </ul>
+        <a href="${shareUrl}" target="_blank" rel="noopener noreferrer" class="badge-styled-btn" style="margin-top: 15px;">
+          <div style="position:relative; display:inline-block;">
+            <img src="https://raw.githubusercontent.com/APEX-922/CopyMyCart/main/icon.png" alt="CopyMyCart Icon" class="badge-icon">
+            <div class="glitter-container" id="bundleBtnGlitter" aria-hidden="true"></div>
           </div>
-          <a href="${shareUrl}" target="_blank" rel="noopener noreferrer" class="btn-copy-bundle">
-            🛒 Copy Bundle (${bundle.items.length} Items)
-          </a>
-        `;
+          <span>Copy Complete Bundle to Cart (10 Items)</span>
+        </a>
+      `;
 
-        grid.appendChild(card);
-      });
+      container.appendChild(section);
+      createGlitter('bundleBtnGlitter', 6);
     }
 
-    function createGlitter(containerId, count = 14) {
+    function createGlitter(containerId, count = 12) {
       const container = document.getElementById(containerId);
       if (!container) return;
 
@@ -676,25 +600,6 @@
           }
         });
       }
-
-      document.querySelectorAll('.magnetic-target, .nav-link, .cart-card, .badge-card').forEach(btn => {
-        btn.addEventListener('mousemove', (e) => {
-          const rect = btn.getBoundingClientRect();
-          const x = e.clientX - rect.left - rect.width / 2;
-          const y = e.clientY - rect.top - rect.height / 2;
-
-          if (btn.classList.contains('nav-link')) {
-            btn.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
-          }
-
-          btn.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
-          btn.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
-        });
-
-        btn.addEventListener('mouseleave', () => {
-          btn.style.transform = 'translate(0px, 0px)';
-        });
-      });
     });
   </script>
 </body>
