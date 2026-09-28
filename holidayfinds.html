@@ -6,13 +6,13 @@
   <title>CopyMyCart — Seasonal Holiday Finds</title>
 
   <!-- HTML Meta Tags -->
-  <meta name="description" content="Discover curated seasonal shopping bundles and add multi-item carts directly to Amazon with CopyMyCart.">
+  <meta name="description" content="Discover curated seasonal shopping favorites directly on Amazon with CopyMyCart.">
 
   <!-- Facebook Meta Tags / Open Graph -->
   <meta property="og:url" content="https://apex-922.github.io/CopyMyCart/holidayfinds">
   <meta property="og:type" content="website">
   <meta property="og:title" content="☆ CopyMyCart ☆ Seasonal Holiday Finds">
-  <meta property="og:description" content="Discover curated seasonal shopping bundles and add multi-item carts directly to Amazon with CopyMyCart.">
+  <meta property="og:description" content="Discover curated seasonal shopping favorites directly on Amazon with CopyMyCart.">
   <meta property="og:image" content="https://raw.githubusercontent.com/APEX-922/CopyMyCart/main/icon.png">
 
   <!-- Twitter Meta Tags -->
@@ -20,7 +20,7 @@
   <meta property="twitter:domain" content="apex-922.github.io">
   <meta property="twitter:url" content="https://apex-922.github.io/CopyMyCart/holidayfinds">
   <meta name="twitter:title" content="☆ CopyMyCart ☆ Seasonal Holiday Finds">
-  <meta name="twitter:description" content="Discover curated seasonal shopping bundles and add multi-item carts directly to Amazon with CopyMyCart.">
+  <meta name="twitter:description" content="Discover curated seasonal shopping favorites directly on Amazon with CopyMyCart.">
   <meta name="twitter:image" content="https://raw.githubusercontent.com/APEX-922/CopyMyCart/main/icon.png">
 
   <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/APEX-922/CopyMyCart/main/icon.png">
@@ -214,7 +214,7 @@
     }
 
     .season-block {
-      margin-bottom: 40px;
+      margin-bottom: 50px;
     }
 
     .season-block:last-child {
@@ -237,10 +237,9 @@
     .bundle-item-list {
       list-style: none;
       padding: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin-bottom: 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
     }
 
     .bundle-item {
@@ -254,13 +253,14 @@
       text-decoration: none;
       color: var(--text-main);
       transition: all 0.25s ease;
+      height: 100%;
     }
 
     .bundle-item:hover {
       border-color: var(--card-border-glow);
       background: rgba(18, 22, 31, 0.95);
-      transform: translateX(4px);
-      box-shadow: 0 0 15px rgba(223, 186, 103, 0.2);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(223, 186, 103, 0.2);
     }
 
     .item-icon-box {
@@ -287,16 +287,17 @@
     }
 
     .item-title {
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 600;
       color: var(--text-main);
+      line-height: 1.3;
     }
 
     .item-tag {
       font-size: 11px;
       color: var(--text-gold);
       font-weight: 700;
-      margin-top: 2px;
+      margin-top: 4px;
     }
 
     .badge-styled-btn {
@@ -394,6 +395,7 @@
       header { padding: 30px 0 20px; gap: 18px; }
       .svg-logo-banner { max-height: 70px; }
       .cart-card { padding: 24px 16px; }
+      .bundle-item-list { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -435,7 +437,7 @@
     <main class="main-content">
       <div class="cart-card">
         <h1 class="page-title">Curated Seasonal Collections</h1>
-        <p class="page-subtitle">Click individual items to view on Amazon, or copy entire seasonal bundles into your cart with one click.</p>
+        <p class="page-subtitle">Click individual items below to view our top seasonal picks directly on Amazon.</p>
         
         <div id="seasonal-collections">
           <!-- Dynamically Loaded Halloween, Fall, and Christmas Collections -->
@@ -495,7 +497,12 @@
           { title: "Giant Outdoor Spider Web Decorations", query: "Giant Outdoor Spider Web Decor" },
           { title: "Hanging Skeleton Ghosts", query: "Hanging Skeleton Ghosts" },
           { title: "Glow in the Dark Spooky Party Cups", query: "Glow in the Dark Halloween Cups" },
-          { title: "3D Black Bat Wall Decals", query: "3D Black Bat Wall Decals" }
+          { title: "3D Black Bat Wall Decals", query: "3D Black Bat Wall Decals" },
+          { title: "Inflatable Yard Ghost Decor", query: "Halloween Inflatable Yard Ghost" },
+          { title: "Party Fog Machine with Lights", query: "Halloween Fog Machine Party" },
+          { title: "Window Silhouette Decorations", query: "Halloween Window Silhouette" },
+          { title: "Motion Sensor Animated Skeleton", query: "Motion Sensor Animated Skeleton" },
+          { title: "Fake Blood and Zombie Makeup Kit", query: "Fake Blood Zombie Makeup Kit" }
         ]
       },
       {
@@ -507,7 +514,12 @@
           { title: "Artificial Fall Maple Leaf Garland", query: "Artificial Fall Maple Leaf Garland" },
           { title: "Outdoor Fall Wreath for Front Door", query: "Outdoor Fall Wreath for Front Door" },
           { title: "Decorative Thanksgiving Pumpkin Set", query: "Decorative Thanksgiving Pumpkin Set" },
-          { title: "Autumn Harvest Table Runner", query: "Autumn Harvest Table Runner" }
+          { title: "Autumn Harvest Table Runner", query: "Autumn Harvest Table Runner" },
+          { title: "Cinnamon Apple Scented Candles", query: "Cinnamon Apple Scented Candles Fall" },
+          { title: "Cozy Plaid Throw Blanket", query: "Cozy Plaid Throw Blanket Fall" },
+          { title: "Rustic Wooden Welcome Sign", query: "Rustic Wooden Welcome Sign Front Porch" },
+          { title: "Cordless Leaf Blower and Vacuum", query: "Cordless Leaf Blower and Vacuum" },
+          { title: "Heavy Duty Pumpkin Carving Kit", query: "Heavy Duty Pumpkin Carving Kit" }
         ]
       },
       {
@@ -519,15 +531,15 @@
           { title: "Shatterproof Christmas Tree Ornaments", query: "Shatterproof Christmas Tree Ornaments" },
           { title: "LED Outdoor Christmas String Lights", query: "LED Outdoor Christmas String Lights" },
           { title: "Faux Fur White Christmas Tree Skirt", query: "Faux Fur White Christmas Tree Skirt" },
-          { title: "Lighted Snowflake Christmas Tree Topper", query: "Lighted Snowflake Christmas Tree Topper" }
+          { title: "Lighted Snowflake Christmas Tree Topper", query: "Lighted Snowflake Christmas Tree Topper" },
+          { title: "Personalized Family Christmas Stockings", query: "Personalized Family Christmas Stockings" },
+          { title: "Premium Holiday Wrapping Paper Set", query: "Premium Holiday Wrapping Paper Set" },
+          { title: "Inflatable Santa Clause Yard Decor", query: "Inflatable Santa Clause Yard Decor" },
+          { title: "Christmas Wreath with Pinecones", query: "Christmas Wreath with Pinecones" },
+          { title: "Outdoor Holiday Laser Light Projector", query: "Outdoor Christmas Laser Light Projector" }
         ]
       }
     ];
-
-    function buildShareUrl(items) {
-      const paramParts = items.map((i, idx) => `item_${idx}:${encodeURIComponent(i.title)}`);
-      return `https://apex-922.github.io/CopyMyCart/share?items=${paramParts.join(',')}`;
-    }
 
     function renderPage() {
       const container = document.getElementById("seasonal-collections");
@@ -536,8 +548,6 @@
       SEASONS.forEach(season => {
         const section = document.createElement("div");
         section.className = "season-block";
-
-        const shareUrl = buildShareUrl(season.items);
 
         section.innerHTML = `
           <h2 class="season-header">${season.title}</h2>
@@ -559,17 +569,9 @@
               `;
             }).join('')}
           </ul>
-          <a href="${shareUrl}" target="_blank" rel="noopener noreferrer" class="badge-styled-btn">
-            <div style="position:relative; display:inline-block;">
-              <img src="https://raw.githubusercontent.com/APEX-922/CopyMyCart/main/icon.png" alt="CopyMyCart Icon" class="badge-icon">
-              <div class="glitter-container" id="glitter_${season.id}" aria-hidden="true"></div>
-            </div>
-            <span>Copy ${season.title.replace(/^[^\s]+\s/, '')} Bundle to Cart</span>
-          </a>
         `;
 
         container.appendChild(section);
-        createGlitter(`glitter_${season.id}`, 6);
       });
     }
 
