@@ -3,298 +3,619 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Seasonal Favorites</title>
+  <title>CopyMyCart — Seasonal Holiday Finds</title>
+
+  <!-- HTML Meta Tags -->
+  <meta name="description" content="Discover curated seasonal shopping bundles and add multi-item carts directly to Amazon with CopyMyCart.">
+
+  <!-- Facebook Meta Tags / Open Graph -->
+  <meta property="og:url" content="https://apex-922.github.io/CopyMyCart/holidayfinds">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="☆ CopyMyCart ☆ Seasonal Holiday Finds">
+  <meta property="og:description" content="Discover curated seasonal shopping bundles and add multi-item carts directly to Amazon with CopyMyCart.">
+  <meta property="og:image" content="https://raw.githubusercontent.com/APEX-922/CopyMyCart/main/icon.png">
+
+  <!-- Twitter Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta property="twitter:domain" content="apex-922.github.io">
+  <meta property="twitter:url" content="https://apex-922.github.io/CopyMyCart/holidayfinds">
+  <meta name="twitter:title" content="☆ CopyMyCart ☆ Seasonal Holiday Finds">
+  <meta name="twitter:description" content="Discover curated seasonal shopping bundles and add multi-item carts directly to Amazon with CopyMyCart.">
+  <meta name="twitter:image" content="https://raw.githubusercontent.com/APEX-922/CopyMyCart/main/icon.png">
+
+  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/APEX-922/CopyMyCart/main/icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800;900&family=Inter:wght@300;400;500;600;700&display=swap">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
   <style>
     :root {
-      --bg-color: #f8f9fa;
-      --card-bg: #ffffff;
-      --text-color: #212529;
-      --accent-halloween: #d97706;
-      --accent-fall: #c2410c;
-      --accent-christmas: #15803d;
-      --border-radius: 12px;
+      --bg-dark: #080A0F;
+      --card-bg: rgba(18, 22, 31, 0.85);
+      --card-border: rgba(223, 186, 103, 0.25);
+      --card-border-glow: rgba(223, 186, 103, 0.9);
+      --text-main: #ffffff;
+      --text-muted: rgba(255, 255, 255, 0.7);
+      --text-gold: #F3D99B;
+      --gold-gradient: linear-gradient(135deg, #F9E4B7 0%, #DFBA67 50%, #9E7D3B 100%);
+      --gold-solid: #DFBA67;
+      --radius-lg: 12px;
+      --radius-md: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background-color: var(--bg-color);
-      color: var(--text-color);
-      margin: 0;
-      padding: 2rem 1rem;
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(circle at 50% 0%, rgba(223, 186, 103, 0.15) 0%, transparent 65%),
+        radial-gradient(circle at 80% 90%, rgba(158, 125, 59, 0.1) 0%, transparent 50%);
+      color: var(--text-main);
+      line-height: 1.6;
+      overflow-x: hidden;
+      position: relative;
+      min-height: 100vh;
+    }
+
+    .parallax-bg {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 550px;
+      height: 550px;
+      background-image: url('https://raw.githubusercontent.com/APEX-922/CopyMyCart/main/icon.png');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+      opacity: 0.15;
+      pointer-events: none;
+      z-index: 0;
+      filter: drop-shadow(0 0 35px rgba(223, 186, 103, 0.25));
+      transition: opacity 0.3s ease, filter 0.3s ease;
+    }
+
+    .glitter-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .sparkle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: #F9E4B7;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #DFBA67, 0 0 12px #F9E4B7;
+      animation: sparkleFly 3s infinite ease-in-out;
+      opacity: 0;
+      will-change: transform, opacity;
+    }
+
+    @keyframes sparkleFly {
+      0% { transform: translateY(10px) scale(0.3); opacity: 0; }
+      50% { opacity: 0.8; }
+      100% { transform: translateY(-40px) scale(1.1); opacity: 0; }
     }
 
     .container {
-      max-width: 1200px;
+      max-width: 1100px;
       margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 2;
     }
 
-    h1 {
-      text-align: center;
-      margin-bottom: 2.5rem;
-      font-size: 2.25rem;
-    }
-
-    .section-title {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      font-size: 1.75rem;
-      margin-top: 3rem;
-      margin-bottom: 1.5rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 2px solid #e5e7eb;
-    }
-
-    .halloween-title { color: var(--accent-halloween); }
-    .fall-title { color: var(--accent-fall); }
-    .christmas-title { color: var(--accent-christmas); }
-
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .product-card {
-      background: var(--card-bg);
-      border-radius: var(--border-radius);
-      border: 1px solid #e5e7eb;
-      overflow: hidden;
+    header {
+      padding: 40px 0 28px;
       display: flex;
       flex-direction: column;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid var(--card-border);
+      background: rgba(10, 13, 20, 0.85);
+      backdrop-filter: blur(12px);
+      gap: 24px;
     }
 
-    .product-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-    }
-
-    .image-wrapper {
-      width: 100%;
-      height: 180px;
+    .logo {
       display: flex;
       align-items: center;
       justify-content: center;
-      background-color: #f3f4f6;
+      text-decoration: none;
+      position: relative;
+      width: 100%;
+      max-width: 650px;
+      cursor: pointer;
     }
 
-    .image-wrapper svg {
-      width: 80px;
-      height: 80px;
+    .svg-logo-banner {
+      width: 100%;
+      height: auto;
+      max-height: 95px;
+      overflow: visible;
+      filter: drop-shadow(0 0 25px rgba(223, 186, 103, 0.6)) brightness(1.15) !important;
     }
 
-    .halloween-bg { background-color: #fff7ed; }
-    .fall-bg { background-color: #fffbeb; }
-    .christmas-bg { background-color: #f0fdf4; }
+    .svg-logo-banner text {
+      fill: #F3D99B !important;
+    }
 
-    .card-body {
-      padding: 1.25rem;
+    .nav-links {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .nav-link {
+      padding: 10px 22px;
+      border-radius: 20px;
+      background: rgba(18, 22, 31, 0.6);
+      border: 1px solid var(--card-border);
+      color: var(--text-gold);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      font-family: 'Montserrat', sans-serif;
+      transition: all 0.3s ease;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      background: var(--gold-gradient);
+      color: #080A0F;
+      border-color: var(--card-border-glow);
+      box-shadow: 0 0 25px rgba(223, 186, 103, 0.6);
+    }
+
+    .main-content {
+      padding: 50px 0 60px;
+    }
+
+    .cart-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      max-width: 950px;
+      margin: 0 auto 40px auto;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+      position: relative;
+    }
+
+    .page-title {
+      font-size: 24px;
+      color: var(--text-gold);
+      text-align: center;
+      font-weight: 800;
+      font-family: 'Montserrat', sans-serif;
+      margin-bottom: 8px;
+    }
+
+    .page-subtitle {
+      font-size: 14px;
+      color: var(--text-muted);
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .season-block {
+      margin-bottom: 40px;
+    }
+
+    .season-block:last-child {
+      margin-bottom: 0;
+    }
+
+    .season-header {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text-gold);
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .bundle-item-list {
+      list-style: none;
+      padding: 0;
       display: flex;
       flex-direction: column;
-      flex-grow: 1;
+      gap: 12px;
+      margin-bottom: 20px;
     }
 
-    .product-title {
-      font-size: 1.1rem;
+    .bundle-item {
+      background: rgba(8, 10, 15, 0.6);
+      border: 1px solid rgba(223, 186, 103, 0.15);
+      border-radius: var(--radius-md);
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      text-decoration: none;
+      color: var(--text-main);
+      transition: all 0.25s ease;
+    }
+
+    .bundle-item:hover {
+      border-color: var(--card-border-glow);
+      background: rgba(18, 22, 31, 0.95);
+      transform: translateX(4px);
+      box-shadow: 0 0 15px rgba(223, 186, 103, 0.2);
+    }
+
+    .item-icon-box {
+      width: 48px;
+      height: 48px;
+      border-radius: 8px;
+      border: 1px solid var(--card-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      background: rgba(8, 10, 15, 0.9);
+    }
+
+    .item-icon-box svg {
+      width: 28px;
+      height: 28px;
+    }
+
+    .item-details {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .item-title {
+      font-size: 14px;
       font-weight: 600;
-      margin: 0 0 1rem 0;
-      color: var(--text-color);
+      color: var(--text-main);
+    }
+
+    .item-tag {
+      font-size: 11px;
+      color: var(--text-gold);
+      font-weight: 700;
+      margin-top: 2px;
+    }
+
+    .badge-styled-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 12px 24px;
+      border-radius: 30px;
+      background: rgba(18, 22, 31, 0.85);
+      border: 1px solid var(--card-border);
+      color: #F3D99B !important;
+      font-size: 14px;
+      font-weight: 700;
+      font-family: 'Montserrat', sans-serif;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4), 0 0 20px rgba(223, 186, 103, 0.15);
+      text-decoration: none;
+      width: 100%;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .badge-styled-btn:hover {
+      border-color: var(--card-border-glow);
+      box-shadow: 0 0 25px rgba(223, 186, 103, 0.6), inset 0 0 10px rgba(255, 255, 255, 0.4);
+      transform: translateY(-2px);
+    }
+
+    .cta-group {
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+      gap: 20px;
+      flex-wrap: wrap;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .badge-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 24px;
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      max-width: 380px;
+    }
+
+    .badge-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      font-weight: 800;
+      color: #F3D99B !important;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      text-align: center;
+    }
+
+    .badge-icon {
+      width: 24px;
+      height: 24px;
+      object-fit: contain;
+    }
+
+    footer {
+      padding: 40px 0;
+      border-top: 1px solid var(--card-border);
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    footer a {
+      color: var(--text-gold);
+      text-decoration: underline;
+    }
+
+    .footer-compliance {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.7);
+      margin-top: 10px;
       line-height: 1.4;
     }
 
-    .shop-button {
-      margin-top: auto;
-      display: inline-block;
-      text-align: center;
-      padding: 0.6rem 1rem;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: 600;
-      color: #ffffff;
-      transition: opacity 0.2s ease;
+    @media (max-width: 768px) {
+      header { padding: 30px 0 20px; gap: 18px; }
+      .svg-logo-banner { max-height: 70px; }
+      .cart-card { padding: 24px 16px; }
     }
-
-    .shop-button:hover {
-      opacity: 0.9;
-    }
-
-    .btn-halloween { background-color: var(--accent-halloween); }
-    .btn-fall { background-color: var(--accent-fall); }
-    .btn-christmas { background-color: var(--accent-christmas); }
   </style>
 </head>
 <body>
 
+  <div class="parallax-bg" id="bgLogoCenter" aria-hidden="true"></div>
+
   <div class="container">
-    <h1>Seasonal Shopping Collection</h1>
-
-    <!-- HALLOWEEN SECTION -->
-    <h2 class="section-title halloween-title">🎃 Halloween Favorites</h2>
-    <div class="product-grid">
-
-      <div class="product-card">
-        <div class="image-wrapper halloween-bg">
-          <!-- Spooky Pumpkin Icon -->
-          <svg viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 2v3" />
-            <path d="M12 5c-4.418 0-8 3.134-8 7 0 4.418 3.582 7 8 7s8-2.582 8-7c0-3.866-3.582-7-8-7z" />
-            <path d="M9 10l1.5 2L9 14" />
-            <path d="M15 10l-1.5 2 1.5 2" />
-            <path d="M8 16h8" />
+    <header>
+      <a href="https://apex-922.github.io/CopyMyCart/index" class="logo" id="headerLogo">
+        <div style="position:relative; width: 100%; display: flex; justify-content: center; align-items: center;">
+          <svg class="svg-logo-banner" viewBox="0 0 650 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs>
+              <filter id="goldGlow" x="-30%" y="-30%" width="160%" height="160%">
+                <feGaussianBlur stdDeviation="5" result="blur" />
+                <feComponentTransfer in="blur" result="glow1">
+                  <feFuncA type="linear" slope="0.8"/>
+                </feComponentTransfer>
+                <feMerge>
+                  <feMergeNode in="glow1" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+            </defs>
+            <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" fill="#F3D99B" filter="url(#goldGlow)" style='font-family: "Montserrat", "Arial Black", sans-serif; font-weight: 900; font-size: 76px; letter-spacing: -3px;'>CopyMyCart</text>
           </svg>
+          <div class="glitter-container" id="logoGlitter" aria-hidden="true"></div>
         </div>
-        <div class="card-body">
-          <h3 class="product-title">Outdoor Pumpkin String Lights</h3>
-          <a href="https://www.amazon.com/s?k=Outdoor+Pumpkin+String+Lights" target="_blank" rel="noopener noreferrer" class="shop-button btn-halloween">View on Amazon</a>
+      </a>
+      <nav class="nav-links">
+        <a href="https://apex-922.github.io/CopyMyCart/index#features" class="nav-link">Features</a>
+        <a href="https://apex-922.github.io/CopyMyCart/index#how-it-works" class="nav-link">How It Works</a>
+        <a href="https://apex-922.github.io/CopyMyCart/holidayfinds" class="nav-link active">Holiday Finds</a>
+        <a href="https://apex-922.github.io/CopyMyCart/Support" class="nav-link">Link Generator</a>
+        <a href="https://apex-922.github.io/CopyMyCart/PrivacyPolicy" class="nav-link">Privacy</a>
+      </nav>
+    </header>
+
+    <main class="main-content">
+      <div class="cart-card">
+        <h1 class="page-title">Curated Seasonal Collections</h1>
+        <p class="page-subtitle">Click individual items to view on Amazon, or copy entire seasonal bundles into your cart with one click.</p>
+        
+        <div id="seasonal-collections">
+          <!-- Dynamically Loaded Halloween, Fall, and Christmas Collections -->
         </div>
       </div>
 
-      <div class="product-card">
-        <div class="image-wrapper halloween-bg">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 2v3" />
-            <path d="M12 5c-4.418 0-8 3.134-8 7 0 4.418 3.582 7 8 7s8-2.582 8-7c0-3.866-3.582-7-8-7z" />
-            <path d="M9 10l1.5 2L9 14" />
-            <path d="M15 10l-1.5 2 1.5 2" />
-            <path d="M8 16h8" />
-          </svg>
+      <div class="cta-group">
+        <div class="badge-card">
+            <span class="badge-label">Get This For Google Chrome</span>
+            <a href="https://chromewebstore.google.com/detail/copycart/lhnmfphjaelpcpgfjjokadcfjljgmekb?authuser=1&hl=en" class="badge-styled-btn" id="badgeLogoChrome" target="_blank" rel="noopener noreferrer">
+                <div style="position:relative; display:inline-block;">
+                    <img src="https://raw.githubusercontent.com/APEX-922/CopyMyCart/main/icon.png" alt="CopyMyCart Icon" class="badge-icon">
+                    <div class="glitter-container" id="badgeGlitterChrome" aria-hidden="true"></div>
+                </div>
+                <span>CopyMyCart v2.0</span>
+            </a>
         </div>
-        <div class="card-body">
-          <h3 class="product-title">Giant Spider Web Decorations</h3>
-          <a href="https://www.amazon.com/s?k=Giant+Spider+Web+Decorations" target="_blank" rel="noopener noreferrer" class="shop-button btn-halloween">View on Amazon</a>
+
+        <div class="badge-card">
+            <span class="badge-label">Get This For Mozilla Firefox</span>
+            <a href="https://addons.mozilla.org/en-US/firefox/addon/CopyMyCart/" class="badge-styled-btn" id="badgeLogoFirefox" target="_blank" rel="noopener noreferrer">
+                <div style="position:relative; display:inline-block;">
+                    <img src="https://raw.githubusercontent.com/APEX-922/CopyMyCart/main/icon.png" alt="CopyMyCart Icon" class="badge-icon">
+                    <div class="glitter-container" id="badgeGlitterFirefox" aria-hidden="true"></div>
+                </div>
+                <span>CopyMyCart v2.0</span>
+            </a>
         </div>
       </div>
+    </main>
 
-      <div class="product-card">
-        <div class="image-wrapper halloween-bg">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 2v3" />
-            <path d="M12 5c-4.418 0-8 3.134-8 7 0 4.418 3.582 7 8 7s8-2.582 8-7c0-3.866-3.582-7-8-7z" />
-            <path d="M9 10l1.5 2L9 14" />
-            <path d="M15 10l-1.5 2 1.5 2" />
-            <path d="M8 16h8" />
-          </svg>
-        </div>
-        <div class="card-body">
-          <h3 class="product-title">Hanging Skeleton Ghosts</h3>
-          <a href="https://www.amazon.com/s?k=Hanging+Skeleton+Ghosts" target="_blank" rel="noopener noreferrer" class="shop-button btn-halloween">View on Amazon</a>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- FALL SECTION -->
-    <h2 class="section-title fall-title">🍂 Fall Essentials</h2>
-    <div class="product-grid">
-
-      <div class="product-card">
-        <div class="image-wrapper fall-bg">
-          <!-- Rake and Leaves Icon -->
-          <svg viewBox="0 0 24 24" fill="none" stroke="#c2410c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 22V10" />
-            <path d="M6 10h12" />
-            <path d="M6 10v4" />
-            <path d="M10 10v4" />
-            <path d="M14 10v4" />
-            <path d="M18 10v4" />
-            <path d="M3 6c2-2 5-2 7 0" />
-            <path d="M14 6c2-2 5-2 7 0" />
-          </svg>
-        </div>
-        <div class="card-body">
-          <h3 class="product-title">Heavy-Duty Garden Lawn Rake</h3>
-          <a href="https://www.amazon.com/s?k=Heavy+Duty+Garden+Lawn+Rake" target="_blank" rel="noopener noreferrer" class="shop-button btn-fall">View on Amazon</a>
-        </div>
-      </div>
-
-      <div class="product-card">
-        <div class="image-wrapper fall-bg">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#c2410c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 22V10" />
-            <path d="M6 10h12" />
-            <path d="M6 10v4" />
-            <path d="M10 10v4" />
-            <path d="M14 10v4" />
-            <path d="M18 10v4" />
-            <path d="M3 6c2-2 5-2 7 0" />
-            <path d="M14 6c2-2 5-2 7 0" />
-          </svg>
-        </div>
-        <div class="card-body">
-          <h3 class="product-title">Artificial Fall Maple Leaf Garland</h3>
-          <a href="https://www.amazon.com/s?k=Artificial+Fall+Maple+Leaf+Garland" target="_blank" rel="noopener noreferrer" class="shop-button btn-fall">View on Amazon</a>
-        </div>
-      </div>
-
-      <div class="product-card">
-        <div class="image-wrapper fall-bg">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#c2410c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 22V10" />
-            <path d="M6 10h12" />
-            <path d="M6 10v4" />
-            <path d="M10 10v4" />
-            <path d="M14 10v4" />
-            <path d="M18 10v4" />
-            <path d="M3 6c2-2 5-2 7 0" />
-            <path d="M14 6c2-2 5-2 7 0" />
-          </svg>
-        </div>
-        <div class="card-body">
-          <h3 class="product-title">Outdoor Fall Wreath for Front Door</h3>
-          <a href="https://www.amazon.com/s?k=Outdoor+Fall+Wreath+for+Front+Door" target="_blank" rel="noopener noreferrer" class="shop-button btn-fall">View on Amazon</a>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- CHRISTMAS SECTION -->
-    <h2 class="section-title christmas-title">🎄 Christmas Specials</h2>
-    <div class="product-grid">
-
-      <div class="product-card">
-        <div class="image-wrapper christmas-bg">
-          <!-- Christmas Tree Icon -->
-          <svg viewBox="0 0 24 24" fill="none" stroke="#15803d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 2l-5 6h3l-4 5h3l-5 6h16l-5-6h3l-4-5h3z" />
-            <path d="M10 22h4v-3h-4z" />
-          </svg>
-        </div>
-        <div class="card-body">
-          <h3 class="product-title">Pre-Lit Artificial Christmas Tree</h3>
-          <a href="https://www.amazon.com/s?k=Pre+Lit+Artificial+Christmas+Tree" target="_blank" rel="noopener noreferrer" class="shop-button btn-christmas">View on Amazon</a>
-        </div>
-      </div>
-
-      <div class="product-card">
-        <div class="image-wrapper christmas-bg">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#15803d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 2l-5 6h3l-4 5h3l-5 6h16l-5-6h3l-4-5h3z" />
-            <path d="M10 22h4v-3h-4z" />
-          </svg>
-        </div>
-        <div class="card-body">
-          <h3 class="product-title">Shatterproof Christmas Tree Ornaments</h3>
-          <a href="https://www.amazon.com/s?k=Shatterproof+Christmas+Tree+Ornaments" target="_blank" rel="noopener noreferrer" class="shop-button btn-christmas">View on Amazon</a>
-        </div>
-      </div>
-
-      <div class="product-card">
-        <div class="image-wrapper christmas-bg">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#15803d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 2l-5 6h3l-4 5h3l-5 6h16l-5-6h3l-4-5h3z" />
-            <path d="M10 22h4v-3h-4z" />
-          </svg>
-        </div>
-        <div class="card-body">
-          <h3 class="product-title">LED Outdoor Christmas String Lights</h3>
-          <a href="https://www.amazon.com/s?k=LED+Outdoor+Christmas+String+Lights" target="_blank" rel="noopener noreferrer" class="shop-button btn-christmas">View on Amazon</a>
-        </div>
-      </div>
-
-    </div>
-
+    <footer>
+      <p>Copyright &copy; 2026 APEX. All Rights Reserved.</p>
+      <p style="margin-top: 8px;"><a href="https://apex-922.github.io/CopyMyCart/PrivacyPolicy">Privacy Policy</a></p>
+      <p class="footer-compliance">CopyMyCart is an independent third-party tool and is not affiliated with, endorsed by, or sponsored by Amazon.com, Inc., eBay Inc., Google LLC, or Mozilla Corporation. As an Amazon Associate CopyMyCart earns from qualifying purchases. Google Chrome is a trademark of Google LLC. Firefox is a trademark of Mozilla Foundation.</p>
+    </footer>
   </div>
 
+  <script>
+    const AMAZON_AFFILIATE_TAG = "apex0225-20";
+
+    // SVG ICONS matching each seasonal theme
+    const ICONS = {
+      pumpkin: `<svg viewBox="0 0 24 24" fill="none" stroke="#DFBA67" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v3" /><path d="M12 5c-4.418 0-8 3.134-8 7 0 4.418 3.582 7 8 7s8-2.582 8-7c0-3.866-3.582-7-8-7z" /><path d="M9 10l1.5 2L9 14" /><path d="M15 10l-1.5 2 1.5 2" /><path d="M8 16h8" /></svg>`,
+      rake: `<svg viewBox="0 0 24 24" fill="none" stroke="#DFBA67" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V10" /><path d="M6 10h12" /><path d="M6 10v4" /><path d="M10 10v4" /><path d="M14 10v4" /><path d="M18 10v4" /><path d="M3 6c2-2 5-2 7 0" /><path d="M14 6c2-2 5-2 7 0" /></svg>`,
+      tree: `<svg viewBox="0 0 24 24" fill="none" stroke="#DFBA67" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l-5 6h3l-4 5h3l-5 6h16l-5-6h3l-4-5h3z" /><path d="M10 22h4v-3h-4z" /></svg>`
+    };
+
+    // HOLIDAY DATA DATABASE
+    const SEASONS = [
+      {
+        id: "halloween",
+        title: "🎃 Spooky Halloween Favorites",
+        iconType: "pumpkin",
+        items: [
+          { title: "Outdoor Pumpkin String Lights", query: "Outdoor Pumpkin String Lights" },
+          { title: "Giant Outdoor Spider Web Decorations", query: "Giant Outdoor Spider Web Decor" },
+          { title: "Hanging Skeleton Ghosts", query: "Hanging Skeleton Ghosts" },
+          { title: "Glow in the Dark Spooky Party Cups", query: "Glow in the Dark Halloween Cups" },
+          { title: "3D Black Bat Wall Decals", query: "3D Black Bat Wall Decals" }
+        ]
+      },
+      {
+        id: "fall",
+        title: "🍂 Fall & Harvest Essentials",
+        iconType: "rake",
+        items: [
+          { title: "Heavy-Duty Garden Lawn Rake", query: "Heavy Duty Garden Lawn Rake" },
+          { title: "Artificial Fall Maple Leaf Garland", query: "Artificial Fall Maple Leaf Garland" },
+          { title: "Outdoor Fall Wreath for Front Door", query: "Outdoor Fall Wreath for Front Door" },
+          { title: "Decorative Thanksgiving Pumpkin Set", query: "Decorative Thanksgiving Pumpkin Set" },
+          { title: "Autumn Harvest Table Runner", query: "Autumn Harvest Table Runner" }
+        ]
+      },
+      {
+        id: "christmas",
+        title: "🎄 Christmas & Holiday Specials",
+        iconType: "tree",
+        items: [
+          { title: "Pre-Lit Artificial Christmas Tree", query: "Pre Lit Artificial Christmas Tree" },
+          { title: "Shatterproof Christmas Tree Ornaments", query: "Shatterproof Christmas Tree Ornaments" },
+          { title: "LED Outdoor Christmas String Lights", query: "LED Outdoor Christmas String Lights" },
+          { title: "Faux Fur White Christmas Tree Skirt", query: "Faux Fur White Christmas Tree Skirt" },
+          { title: "Lighted Snowflake Christmas Tree Topper", query: "Lighted Snowflake Christmas Tree Topper" }
+        ]
+      }
+    ];
+
+    function buildShareUrl(items) {
+      const paramParts = items.map((i, idx) => `item_${idx}:${encodeURIComponent(i.title)}`);
+      return `https://apex-922.github.io/CopyMyCart/share?items=${paramParts.join(',')}`;
+    }
+
+    function renderPage() {
+      const container = document.getElementById("seasonal-collections");
+      container.innerHTML = "";
+
+      SEASONS.forEach(season => {
+        const section = document.createElement("div");
+        section.className = "season-block";
+
+        const shareUrl = buildShareUrl(season.items);
+
+        section.innerHTML = `
+          <h2 class="season-header">${season.title}</h2>
+          <ul class="bundle-item-list">
+            ${season.items.map(item => {
+              const amazonUrl = `https://www.amazon.com/s?k=${encodeURIComponent(item.query)}&tag=${AMAZON_AFFILIATE_TAG}`;
+              return `
+                <li>
+                  <a href="${amazonUrl}" target="_blank" rel="noopener noreferrer" class="bundle-item">
+                    <div class="item-icon-box">
+                      ${ICONS[season.iconType]}
+                    </div>
+                    <div class="item-details">
+                      <span class="item-title">${item.title}</span>
+                      <span class="item-tag">View on Amazon ↗</span>
+                    </div>
+                  </a>
+                </li>
+              `;
+            }).join('')}
+          </ul>
+          <a href="${shareUrl}" target="_blank" rel="noopener noreferrer" class="badge-styled-btn">
+            <div style="position:relative; display:inline-block;">
+              <img src="https://raw.githubusercontent.com/APEX-922/CopyMyCart/main/icon.png" alt="CopyMyCart Icon" class="badge-icon">
+              <div class="glitter-container" id="glitter_${season.id}" aria-hidden="true"></div>
+            </div>
+            <span>Copy ${season.title.replace(/^[^\s]+\s/, '')} Bundle to Cart</span>
+          </a>
+        `;
+
+        container.appendChild(section);
+        createGlitter(`glitter_${season.id}`, 6);
+      });
+    }
+
+    function createGlitter(containerId, count = 12) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+
+      for (let i = 0; i < count; i++) {
+        const sparkle = document.createElement('div');
+        sparkle.className = 'sparkle';
+        sparkle.style.left = `${Math.random() * 100}%`;
+        sparkle.style.top = `${Math.random() * 100}%`;
+        sparkle.style.animationDelay = `${Math.random() * 3}s`;
+        sparkle.style.animationDuration = `${2 + Math.random() * 2}s`;
+        container.appendChild(sparkle);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      createGlitter('logoGlitter', 14);
+      createGlitter('badgeGlitterChrome', 4);
+      createGlitter('badgeGlitterFirefox', 4);
+
+      renderPage();
+
+      const centerLogo = document.getElementById('bgLogoCenter');
+      if (centerLogo) {
+        document.addEventListener('mousemove', (e) => {
+          const centerRect = centerLogo.getBoundingClientRect();
+          const centerDist = Math.hypot(
+            e.clientX - (centerRect.left + centerRect.width / 2),
+            e.clientY - (centerRect.top + centerRect.height / 2)
+          );
+          const threshold = 380;
+
+          if (centerDist < threshold) {
+            const intensity = 1 - (centerDist / threshold);
+            centerLogo.style.opacity = (0.15 + (intensity * 0.6)).toString();
+            centerLogo.style.filter = `drop-shadow(0 0 ${35 + intensity * 40}px rgba(223, 186, 103, ${0.3 + intensity * 0.7})) brightness(${1 + intensity * 0.25})`;
+          } else {
+            centerLogo.style.opacity = '0.15';
+            centerLogo.style.filter = 'drop-shadow(0 0 35px rgba(223, 186, 103, 0.25)) brightness(1)';
+          }
+        });
+      }
+    });
+  </script>
 </body>
 </html>
