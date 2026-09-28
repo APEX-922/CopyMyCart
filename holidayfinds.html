@@ -154,6 +154,9 @@
 
     .main-content {
       padding: 50px 0 60px;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
     }
 
     .author-banner {
@@ -162,7 +165,7 @@
       font-size: 18px;
       font-weight: 800;
       color: var(--text-gold);
-      margin-bottom: 20px;
+      margin-bottom: 10px;
       letter-spacing: 0.5px;
       text-shadow: 0 0 12px rgba(223, 186, 103, 0.4);
     }
@@ -172,11 +175,17 @@
       backdrop-filter: blur(16px);
       border: 1px solid var(--card-border);
       border-radius: var(--radius-lg);
-      padding: 40px;
+      padding: 36px 40px;
       max-width: 950px;
+      width: 100%;
       margin: 0 auto;
       box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
       position: relative;
+    }
+
+    .intro-card {
+      text-align: center;
+      padding: 30px 40px;
     }
 
     .page-title {
@@ -189,28 +198,19 @@
     }
 
     .page-subtitle {
-      font-size: 14px;
+      font-size: 15px;
       color: var(--text-muted);
       text-align: center;
-      margin-bottom: 35px;
-    }
-
-    .season-block {
-      margin-bottom: 50px;
-    }
-
-    .season-block:last-child {
-      margin-bottom: 0;
     }
 
     .season-header {
       font-family: 'Montserrat', sans-serif;
-      font-size: 18px;
+      font-size: 20px;
       font-weight: 800;
       color: var(--text-gold);
       border-bottom: 1px solid var(--card-border);
-      padding-bottom: 10px;
-      margin-bottom: 20px;
+      padding-bottom: 12px;
+      margin-bottom: 24px;
       display: flex;
       align-items: center;
       gap: 10px;
@@ -339,13 +339,15 @@
         THIS LIST PROVIDED BY THE AUTHOR OF CopyMyCart
       </div>
 
-      <div class="cart-card">
+      <!-- Introduction Card -->
+      <div class="cart-card intro-card">
         <h1 class="page-title">Curated Seasonal Holiday Finds</h1>
         <p class="page-subtitle">Explore top seasonal decor and essentials directly on Amazon.</p>
-        
-        <div id="seasonal-collections">
-          <!-- Dynamically Loaded Halloween, Fall, and Christmas Collections -->
-        </div>
+      </div>
+
+      <!-- Container for Separate Seasonal Cards -->
+      <div id="seasonal-collections" style="display: flex; flex-direction: column; gap: 30px;">
+        <!-- Dynamically Loaded Halloween, Fall, and Christmas Cards -->
       </div>
     </main>
 
@@ -379,7 +381,17 @@
           { title: "Party Fog Machine with Lights", query: "Halloween Fog Machine Party" },
           { title: "Window Silhouette Decorations", query: "Halloween Window Silhouette" },
           { title: "Motion Sensor Animated Skeleton", query: "Motion Sensor Animated Skeleton" },
-          { title: "Fake Blood and Zombie Makeup Kit", query: "Fake Blood Zombie Makeup Kit" }
+          { title: "Fake Blood and Zombie Makeup Kit", query: "Fake Blood Zombie Makeup Kit" },
+          { title: "Flame Light Bulb Flame Effect LED", query: "Flame Light Bulb Flame Effect LED" },
+          { title: "Halloween Tombstones Yard Stakes", query: "Halloween Tombstones Yard Stakes" },
+          { title: "Possessed Animated Doorbell Decor", query: "Possessed Animated Doorbell Decor" },
+          { title: "Spooky Spider Web Table Runner", query: "Spooky Spider Web Table Runner" },
+          { title: "Grim Reaper Costume with Scythe", query: "Grim Reaper Costume with Scythe" },
+          { title: "Light-Up Witch Hats Garland", query: "Light Up Witch Hats Garland" },
+          { title: "Cauldron Candy Bowl with Stand", query: "Cauldron Candy Bowl with Stand" },
+          { title: "Haunted House Sound Effects Speaker", query: "Haunted House Sound Effects Speaker" },
+          { title: "Halloween Window Clings Decals", query: "Halloween Window Clings Decals" },
+          { title: "Orange and Black Balloon Arch Kit", query: "Halloween Orange Black Balloon Arch Kit" }
         ]
       },
       {
@@ -396,7 +408,17 @@
           { title: "Cozy Plaid Throw Blanket", query: "Cozy Plaid Throw Blanket Fall" },
           { title: "Rustic Wooden Welcome Sign", query: "Rustic Wooden Welcome Sign Front Porch" },
           { title: "Cordless Leaf Blower and Vacuum", query: "Cordless Leaf Blower and Vacuum" },
-          { title: "Heavy Duty Pumpkin Carving Kit", query: "Heavy Duty Pumpkin Carving Kit" }
+          { title: "Heavy Duty Pumpkin Carving Kit", query: "Heavy Duty Pumpkin Carving Kit" },
+          { title: "Fall Doormat Hello Pumpkin", query: "Fall Doormat Hello Pumpkin" },
+          { title: "Cast Iron Dutch Oven Pot", query: "Cast Iron Dutch Oven Pot" },
+          { title: "Burlap Thanksgiving Turkey Decor", query: "Burlap Thanksgiving Turkey Decor" },
+          { title: "Amber Glass Maple Syrup Bottles", query: "Amber Glass Maple Syrup Bottles" },
+          { title: "Faux White Velvet Pumpkins", query: "Faux White Velvet Pumpkins Decor" },
+          { title: "Warm Vanilla Spice Essential Oil", query: "Warm Vanilla Spice Essential Oil" },
+          { title: "Harvest Cornucopia Table Centerpiece", query: "Harvest Cornucopia Table Centerpiece" },
+          { title: "Heavy Duty Yard Leaf Bag Funnel", query: "Heavy Duty Yard Leaf Bag Funnel" },
+          { title: "Flameless LED Pillar Candles", query: "Flameless LED Pillar Candles Warm Gold" },
+          { title: "Knit Oversized Sweater Blanket", query: "Knit Oversized Sweater Blanket" }
         ]
       },
       {
@@ -413,7 +435,17 @@
           { title: "Premium Holiday Wrapping Paper Set", query: "Premium Holiday Wrapping Paper Set" },
           { title: "Inflatable Santa Clause Yard Decor", query: "Inflatable Santa Clause Yard Decor" },
           { title: "Christmas Wreath with Pinecones", query: "Christmas Wreath with Pinecones" },
-          { title: "Outdoor Holiday Laser Light Projector", query: "Outdoor Christmas Laser Light Projector" }
+          { title: "Outdoor Holiday Laser Light Projector", query: "Outdoor Christmas Laser Light Projector" },
+          { title: "Holiday Gingerbread House Making Kit", query: "Holiday Gingerbread House Making Kit" },
+          { title: "Christmas Village Set with Lights", query: "Christmas Village Set with Lights" },
+          { title: "Nutcracker Soldier Wooden Statues", query: "Nutcracker Soldier Wooden Statues" },
+          { title: "Holiday Pine Scented Room Spray", query: "Holiday Pine Scented Room Spray" },
+          { title: "Hot Cocoa Mug and Warmer Set", query: "Hot Cocoa Mug and Warmer Set" },
+          { title: "Christmas Window Star String Lights", query: "Christmas Window Star String Lights" },
+          { title: "Red Velvet Ribbon Bows Garland", query: "Red Velvet Ribbon Bows Garland" },
+          { title: "Animated Christmas Train Track Set", query: "Animated Christmas Train Track Set" },
+          { title: "Holiday Throw Pillow Covers Set", query: "Holiday Throw Pillow Covers Set" },
+          { title: "Elf on the Shelf Christmas Tradition", query: "Elf on the Shelf Christmas Tradition" }
         ]
       }
     ];
@@ -423,10 +455,10 @@
       container.innerHTML = "";
 
       SEASONS.forEach(season => {
-        const section = document.createElement("div");
-        section.className = "season-block";
+        const card = document.createElement("div");
+        card.className = "cart-card";
 
-        section.innerHTML = `
+        card.innerHTML = `
           <h2 class="season-header">${season.title}</h2>
           <ul class="bundle-item-list">
             ${season.items.map(item => {
@@ -448,7 +480,7 @@
           </ul>
         `;
 
-        container.appendChild(section);
+        container.appendChild(card);
       });
     }
 
