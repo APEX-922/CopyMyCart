@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CopyMyCart — Shared Cart Ideas</title>
+  <title>CopyMyCart — Shared Cart Items</title>
 
   <!-- HTML Meta Tags -->
   <meta name="description" content="View and add shared items directly to your cart with CopyMyCart.">
@@ -19,7 +19,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta property="twitter:domain" content="apex-922.github.io">
   <meta property="twitter:url" content="https://apex-922.github.io/CopyMyCart/">
-  <meta name="twitter:title" content="☆ CopyMyCart ☆ Shared cart ideas>
+  <meta name="twitter:title" content="☆ CopyMyCart ☆ Someone Shared a Cart With You">
   <meta name="twitter:description" content="View and add shared items directly to your cart with CopyMyCart.">
   <meta name="twitter:image" content="https://raw.githubusercontent.com/APEX-922/CopyMyCart/main/icon.png">
 
@@ -352,6 +352,28 @@
       display: none;
     }
 
+    /* Master Amazon Multicart Badge Style */
+    .amazon-multicart-wrapper {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 28px;
+    }
+
+    .badge.amazon-multicart-badge {
+      background: rgba(18, 22, 31, 0.95);
+      border: 1px solid var(--card-border-glow);
+      padding: 12px 28px;
+      max-width: 380px;
+      width: 100%;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5), 0 0 25px rgba(223, 186, 103, 0.3);
+    }
+
+    .badge.amazon-multicart-badge:hover {
+      border-color: var(--card-border-glow);
+      box-shadow: 0 0 30px rgba(223, 186, 103, 0.75), inset 0 0 12px rgba(255, 255, 255, 0.4);
+      transform: translateY(-2px);
+    }
+
     .item-list {
       display: flex;
       flex-direction: column;
@@ -445,8 +467,6 @@
       font-size: 11px;
       color: var(--text-muted);
       margin-top: 4px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
     }
 
     .btn-item-cart {
@@ -625,10 +645,13 @@
     <main class="main-content">
       <div class="cart-card magnetic-target">
         <p class="subtitle" id="item-count-text">Loading shared collection...</p>
+        
+        <!-- Dynamic Master Amazon Multi-Cart Badge (Visible only if 2+ Amazon ASIN items) -->
+        <div id="amazon-multicart-container" class="amazon-multicart-wrapper" style="display:none;"></div>
 
-        <!-- Dynamic Instruction Banner (Shown only if eBay items are present) -->
+        <!-- Dynamic Instruction Banner (Shown if eBay items or search links are present) -->
         <div class="instruction-banner" id="instruction-banner">
-          Review your shared items below. Click individual search buttons to find items on Amazon:
+          Review your shared items below. Click individual buttons to process items:
         </div>
 
         <div class="item-list" id="item-list"></div>
@@ -676,17 +699,37 @@
     const EPN_ROTATION_ID = "711-53200-19255-0";
     const AMAZON_ASSOCIATE_TAG = "apex0225-20";
 
+    // Demo items used ONLY when page is opened directly without ?items= in URL
     const DEMO_ITEMS = [
       { id: "B0BP9SNVH9", title: "Fire TV Stick 4K", isAmazon: true, customUrl: null },
-      { id: "B0D131DTJ2", title: "Tile Mate (2024) 4-Pack Bluetooth Tracker", isAmazon: true, customUrl: null },
+      { 
+        id: "apple-airtag-4-pack", 
+        title: "Apple AirTag 4 Pack", 
+        isAmazon: true, 
+        customUrl: `https://www.amazon.com/s?k=${encodeURIComponent("Apple AirTag 4 Pack")}&tag=${AMAZON_ASSOCIATE_TAG}` 
+      },
       { id: "B01MSSDEPK", title: "CeraVe Hydrating Facial Cleanser (16 oz)", isAmazon: true, customUrl: null },
-      { id: "B00D7BZNT2", title: "CeraVe Daily Moisturizing Lotion (12 oz)", isAmazon: true, customUrl: null },
-      { id: "tempered-glass", title: "Tempered Glass Screen Protectors", isAmazon: true, customUrl: null },
+      { 
+        id: "neutrogena-hydro-boost", 
+        title: "Neutrogena Hydro Boost Water Gel, 24 Hr Hydration, 1.7 oz | For Normal/Oily Skin, Signature Fragrance, Face Moisturizer with Hyaluronic Acid, Skin Care for Juicy, Deeply Hydrated Skin", 
+        isAmazon: true, 
+        customUrl: `https://www.amazon.com/s?k=${encodeURIComponent("Neutrogena Hydro Boost Water Gel, 24 Hr Hydration, 1.7 oz | For Normal/Oily Skin, Signature Fragrance, Face Moisturizer with Hyaluronic Acid, Skin Care for Juicy, Deeply Hydrated Skin")}&tag=${AMAZON_ASSOCIATE_TAG}` 
+      },
+      { 
+        id: "tempered-glass", 
+        title: "Tempered Glass Screen Protectors", 
+        isAmazon: true, 
+        customUrl: `https://www.amazon.com/s?k=tempered+glass+screen+protector&tag=${AMAZON_ASSOCIATE_TAG}` 
+      },
       { id: "B00PBX3L7K", title: "COSRX Advanced Snail 96 Mucin Power Essence", isAmazon: true, customUrl: null }
     ];
 
+    function isSearchTermItem(item) {
+      return Boolean(item.customUrl) || item.id === "apple-airtag-4-pack" || item.id === "neutrogena-hydro-boost" || item.id === "tempered-glass";
+    }
+
     function isAmazonItem(id) {
-      return (id.length === 10 && !/^\d{10,14}$/.test(id)) || id === "tempered-glass";
+      return (id.length === 10 && !/^\d{10,14}$/.test(id)) || id === "apple-airtag-4-pack" || id === "neutrogena-hydro-boost" || id === "tempered-glass";
     }
 
     function buildEbayUrl(id) {
@@ -702,9 +745,21 @@
       return `${baseUrl}?${params.toString()}`;
     }
 
-    function buildAmazonSearchUrl(queryTerm) {
-      const encodedQuery = encodeURIComponent(queryTerm);
-      return `https://www.amazon.com/s?k=${encodedQuery}&tag=${AMAZON_ASSOCIATE_TAG}`;
+    function buildAmazonSingleUrl(asin, customUrl = null) {
+      if (customUrl) return customUrl;
+      return `https://www.amazon.com/dp/${asin}?tag=${AMAZON_ASSOCIATE_TAG}`;
+    }
+
+    function buildAmazonMultiCartUrl(amazonItems) {
+      let url = `https://www.amazon.com/gp/aws/cart/add.html?tag=${AMAZON_ASSOCIATE_TAG}&AssociateTag=${AMAZON_ASSOCIATE_TAG}`;
+      let validAsinCount = 0;
+      amazonItems.forEach((item) => {
+        if (!isSearchTermItem(item)) {
+          validAsinCount++;
+          url += `&ASIN.${validAsinCount}=${encodeURIComponent(item.id)}&Quantity.${validAsinCount}=1`;
+        }
+      });
+      return url;
     }
 
     const urlParams = new URLSearchParams(window.location.search);
@@ -741,6 +796,7 @@
 
     const itemCountText = document.getElementById("item-count-text");
     const instructionBanner = document.getElementById("instruction-banner");
+    const amazonMulticartContainer = document.getElementById("amazon-multicart-container");
     const itemListContainer = document.getElementById("item-list");
     const resetContainer = document.getElementById("reset-container");
     const resetAllBtn = document.getElementById("reset-all-btn");
@@ -775,12 +831,35 @@
       itemListContainer.innerHTML = "";
       const completedIds = getCompletedItems();
 
+      const amazonItems = parsedItems.filter(i => i.isAmazon);
       const ebayItems = parsedItems.filter(i => !i.isAmazon);
+      
+      const validAsinItems = amazonItems.filter(i => !isSearchTermItem(i));
+      const useMultiCart = validAsinItems.length >= 2;
 
-      if (ebayItems.length > 0) {
+      // Show instruction banner if there are eBay items or search links present
+      if (ebayItems.length > 0 || amazonItems.some(i => isSearchTermItem(i))) {
         instructionBanner.style.display = "block";
       } else {
         instructionBanner.style.display = "none";
+      }
+
+      // Master Badge Display
+      if (useMultiCart) {
+        amazonMulticartContainer.style.display = "flex";
+        const multiCartUrl = buildAmazonMultiCartUrl(validAsinItems);
+        amazonMulticartContainer.innerHTML = `
+          <a href="${multiCartUrl}" target="_blank" rel="noopener noreferrer" class="badge amazon-multicart-badge" id="badgeAmazonMulticart">
+            <div style="position:relative; display:inline-block;">
+              <img src="https://raw.githubusercontent.com/APEX-922/CopyMyCart/main/icon.png" alt="Cart Icon" class="badge-icon">
+              <div class="glitter-container" id="badgeGlitterAmazon" aria-hidden="true"></div>
+            </div>
+            <span>Add list to cart</span>
+          </a>
+        `;
+        createGlitter('badgeGlitterAmazon', 4);
+      } else {
+        amazonMulticartContainer.style.display = "none";
       }
 
       parsedItems.forEach((item) => {
@@ -808,8 +887,12 @@
         idTag.className = "item-id-tag";
 
         if (item.isAmazon) {
-          idTag.textContent = "EXPLORE ON AMAZON";
-          titleLink.href = buildAmazonSearchUrl(item.title);
+          if (isSearchTermItem(item)) {
+            idTag.textContent = "explore on amazon";
+          } else {
+            idTag.textContent = `ASIN: ${item.id}`;
+          }
+          titleLink.href = buildAmazonSingleUrl(item.id, item.customUrl);
         } else {
           idTag.textContent = `Item ID: ${item.id}`;
           titleLink.href = buildEbayUrl(item.id);
@@ -821,42 +904,100 @@
         card.appendChild(chk);
         card.appendChild(details);
 
-        const itemUrl = item.isAmazon ? buildAmazonSearchUrl(item.title) : buildEbayUrl(item.id);
-        const btn = document.createElement("a");
-        btn.href = itemUrl;
-        btn.target = "_blank";
-        btn.rel = "noopener noreferrer";
-        btn.className = `btn-item-cart ${item.isAmazon ? 'amazon-btn' : 'ebay-btn'} ${isAlreadyCompleted ? 'btn-completed' : ''}`;
-        btn.textContent = isAlreadyCompleted ? 'Complete' : (item.isAmazon ? 'Search Amazon' : 'Add to Cart');
+        // Action Buttons
+        if (!item.isAmazon) {
+          const itemUrl = buildEbayUrl(item.id);
+          const btn = document.createElement("a");
+          btn.href = itemUrl;
+          btn.target = "_blank";
+          btn.rel = "noopener noreferrer";
+          btn.className = `btn-item-cart ebay-btn ${isAlreadyCompleted ? 'btn-completed' : ''}`;
+          btn.textContent = isAlreadyCompleted ? 'Complete' : 'Add to Cart';
 
-        function markRowState(completed) {
-          if (completed) {
-            card.classList.add("completed");
-            btn.classList.add("btn-completed");
-            btn.textContent = "Complete";
-            chk.checked = true;
-            chk.style.display = "inline-block";
-          } else {
-            card.classList.remove("completed");
-            btn.classList.remove("btn-completed");
-            btn.textContent = item.isAmazon ? 'Search Amazon' : 'Add to Cart';
-            chk.checked = false;
-            chk.style.display = "none";
+          function markRowState(completed) {
+            if (completed) {
+              card.classList.add("completed");
+              btn.classList.add("btn-completed");
+              btn.textContent = "Complete";
+              chk.checked = true;
+              chk.style.display = "inline-block";
+            } else {
+              card.classList.remove("completed");
+              btn.classList.remove("btn-completed");
+              btn.textContent = "Add to Cart";
+              chk.checked = false;
+              chk.style.display = "none";
+            }
           }
+
+          btn.addEventListener("click", () => {
+            setItemCompleted(item.id);
+            markRowState(true);
+          });
+
+          chk.addEventListener("change", (e) => {
+            const checked = e.target.checked;
+            toggleItemCompleted(item.id, checked);
+            markRowState(checked);
+          });
+
+          card.appendChild(btn);
+
+        } else if (item.isAmazon && (!useMultiCart || isSearchTermItem(item))) {
+          const itemUrl = buildAmazonSingleUrl(item.id, item.customUrl);
+          const btn = document.createElement("a");
+          btn.href = itemUrl;
+          btn.target = "_blank";
+          btn.rel = "noopener noreferrer";
+          btn.className = `btn-item-cart amazon-btn ${isAlreadyCompleted ? 'btn-completed' : ''}`;
+          btn.textContent = isAlreadyCompleted ? 'Complete' : (isSearchTermItem(item) ? 'Search' : 'Add to Cart');
+
+          function markRowState(completed) {
+            if (completed) {
+              card.classList.add("completed");
+              btn.classList.add("btn-completed");
+              btn.textContent = "Complete";
+              chk.checked = true;
+              chk.style.display = "inline-block";
+            } else {
+              card.classList.remove("completed");
+              btn.classList.remove("btn-completed");
+              btn.textContent = isSearchTermItem(item) ? 'Search' : 'Add to Cart';
+              chk.checked = false;
+              chk.style.display = "none";
+            }
+          }
+
+          btn.addEventListener("click", () => {
+            setItemCompleted(item.id);
+            markRowState(true);
+          });
+
+          chk.addEventListener("change", (e) => {
+            const checked = e.target.checked;
+            toggleItemCompleted(item.id, checked);
+            markRowState(checked);
+          });
+
+          card.appendChild(btn);
+
+        } else {
+          if (isAlreadyCompleted) {
+            card.classList.add("completed");
+            chk.style.display = "inline-block";
+          }
+          chk.addEventListener("change", (e) => {
+            const checked = e.target.checked;
+            toggleItemCompleted(item.id, checked);
+            if (checked) {
+              card.classList.add("completed");
+              chk.style.display = "inline-block";
+            } else {
+              card.classList.remove("completed");
+            }
+          });
         }
 
-        btn.addEventListener("click", () => {
-          setItemCompleted(item.id);
-          markRowState(true);
-        });
-
-        chk.addEventListener("change", (e) => {
-          const checked = e.target.checked;
-          toggleItemCompleted(item.id, checked);
-          markRowState(checked);
-        });
-
-        card.appendChild(btn);
         itemListContainer.appendChild(card);
       });
     }
