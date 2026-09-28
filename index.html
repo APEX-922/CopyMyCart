@@ -189,14 +189,27 @@
         /* Sub-Header Holiday Banner Badge */
         .sub-header-banner {
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             padding: 24px 0 0;
         }
 
+        .sub-header-subtitle {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            text-transform: lowercase;
+            letter-spacing: 0.5px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
         .pulsing-badge-wrapper {
             position: relative;
             display: inline-block;
+            width: 100%;
+            max-width: 310px;
         }
 
         .pulsing-badge-wrapper::before {
@@ -252,6 +265,7 @@
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 25px rgba(223, 186, 103, 0.3);
             transition: transform 0.2s ease, border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
             forced-color-adjust: none !important;
+            width: auto;
         }
 
         .holiday-pill-badge:hover {
@@ -305,7 +319,8 @@
             overflow: hidden;
             transition: transform 0.2s ease, border-color 0.3s ease, box-shadow 0.3s ease;
             width: 100%;
-            max-width: 310px;
+            height: 100%;
+            z-index: 1;
         }
 
         .badge-card::before {
@@ -609,7 +624,8 @@
 
         <!-- Pulsing Pill Badge Directly Below Header -->
         <div class="sub-header-banner">
-            <div class="pulsing-badge-wrapper magnetic-target">
+            <span class="sub-header-subtitle">quick links i've created for you</span>
+            <div class="pulsing-badge-wrapper magnetic-target" style="width: auto;">
                 <a href="https://apex-922.github.io/CopyMyCart/HolidayEssentials" class="holiday-pill-badge" id="holidayPillBadge">
                     <div style="position:relative; display:inline-block;">
                         <img src="https://raw.githubusercontent.com/APEX-922/CopyMyCart/main/icon.png" alt="CopyMyCart Icon" class="badge-icon">
@@ -624,31 +640,7 @@
             <h1>Save & Share Your Carts Effortlessly</h1>
             <p>CopyMyCart lets you turn active Amazon and eBay cart items into custom shareable links and local folders instantly.</p>
 
-            <div class="cta-group">
-                <div class="badge-card magnetic-target">
-                    <span class="badge-label">Get This For Google Chrome</span>
-                    <a href="https://chromewebstore.google.com/detail/copycart/lhnmfphjaelpcpgfjjokadcfjljgmekb?authuser=1&hl=en" class="badge" id="badgeLogoChrome" style="text-decoration: none;" target="_blank" rel="noopener noreferrer">
-                        <div style="position:relative; display:inline-block;">
-                            <img src="https://raw.githubusercontent.com/APEX-922/CopyMyCart/main/icon.png" alt="CopyMyCart Icon" class="badge-icon">
-                            <div class="glitter-container" id="badgeGlitterChrome"></div>
-                        </div>
-                        <span>CopyMyCart v2.0</span>
-                    </a>
-                </div>
-
-                <div class="badge-card magnetic-target">
-                    <span class="badge-label">Get This For Mozilla Firefox</span>
-                    <a href="https://addons.mozilla.org/en-US/firefox/addon/CopyMyCart/" class="badge" id="badgeLogoFirefox" style="text-decoration: none;" target="_blank" rel="noopener noreferrer">
-                        <div style="position:relative; display:inline-block;">
-                            <img src="https://raw.githubusercontent.com/APEX-922/CopyMyCart/main/icon.png" alt="CopyMyCart Icon" class="badge-icon">
-                            <div class="glitter-container" id="badgeGlitterFirefox"></div>
-                        </div>
-                        <span>CopyMyCart v2.0</span>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Embedded YouTube Video (Autoplay & Loop Enabled) -->
+            <!-- Embedded YouTube Video (Moved Above Badges) -->
             <div class="video-section">
                 <div class="video-container">
                     <iframe 
@@ -657,6 +649,34 @@
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                         allowfullscreen>
                     </iframe>
+                </div>
+            </div>
+
+            <div class="cta-group">
+                <div class="pulsing-badge-wrapper">
+                    <div class="badge-card magnetic-target">
+                        <span class="badge-label">Get This For Google Chrome</span>
+                        <a href="https://chromewebstore.google.com/detail/copycart/lhnmfphjaelpcpgfjjokadcfjljgmekb?authuser=1&hl=en" class="badge" id="badgeLogoChrome" style="text-decoration: none;" target="_blank" rel="noopener noreferrer">
+                            <div style="position:relative; display:inline-block;">
+                                <img src="https://raw.githubusercontent.com/APEX-922/CopyMyCart/main/icon.png" alt="CopyMyCart Icon" class="badge-icon">
+                                <div class="glitter-container" id="badgeGlitterChrome"></div>
+                            </div>
+                            <span>CopyMyCart v2.0</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="pulsing-badge-wrapper">
+                    <div class="badge-card magnetic-target">
+                        <span class="badge-label">Get This For Mozilla Firefox</span>
+                        <a href="https://addons.mozilla.org/en-US/firefox/addon/CopyMyCart/" class="badge" id="badgeLogoFirefox" style="text-decoration: none;" target="_blank" rel="noopener noreferrer">
+                            <div style="position:relative; display:inline-block;">
+                                <img src="https://raw.githubusercontent.com/APEX-922/CopyMyCart/main/icon.png" alt="CopyMyCart Icon" class="badge-icon">
+                                <div class="glitter-container" id="badgeGlitterFirefox"></div>
+                            </div>
+                            <span>CopyMyCart v2.0</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </section>
