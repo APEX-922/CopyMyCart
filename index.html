@@ -209,20 +209,19 @@
             position: relative;
             display: inline-block;
             width: 100%;
-            max-width: 310px;
         }
 
         .pulsing-badge-wrapper::before {
             content: '';
             position: absolute;
-            top: -4px;
-            left: -4px;
-            right: -4px;
-            bottom: -4px;
-            border-radius: 35px;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            border-radius: 30px;
             background: var(--gold-gradient);
             opacity: 0.6;
-            filter: blur(12px);
+            filter: blur(10px);
             z-index: 0;
             animation: pulseGlow 2.5s infinite ease-in-out;
         }
@@ -236,7 +235,7 @@
             50% {
                 transform: scale(1.04);
                 opacity: 0.95;
-                filter: blur(18px);
+                filter: blur(16px);
             }
             100% {
                 transform: scale(0.96);
@@ -310,16 +309,16 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 20px 24px;
+            padding: 24px;
             background: var(--card-bg);
             backdrop-filter: blur(16px);
             border: 1px solid var(--card-border);
             border-radius: var(--radius-lg);
             position: relative;
-            overflow: hidden;
+            overflow: visible;
             transition: transform 0.2s ease, border-color 0.3s ease, box-shadow 0.3s ease;
             width: 100%;
-            height: 100%;
+            max-width: 320px;
             z-index: 1;
         }
 
@@ -330,6 +329,7 @@
             left: 0;
             right: 0;
             bottom: 0;
+            border-radius: var(--radius-lg);
             background: radial-gradient(circle 180px at var(--mouse-x, -500px) var(--mouse-y, -500px), rgba(223, 186, 103, 0.15), transparent 80%);
             pointer-events: none;
             transition: opacity 0.3s ease;
@@ -345,7 +345,7 @@
             font-size: 14px;
             font-weight: 800;
             color: #F3D99B !important;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             text-align: center;
@@ -353,21 +353,22 @@
         }
 
         .badge {
+            position: relative;
+            z-index: 1;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 12px;
-            padding: 10px 24px;
+            padding: 12px 24px;
             border-radius: 30px;
-            background: rgba(18, 22, 31, 0.85);
+            background: rgba(18, 22, 31, 0.95);
             backdrop-filter: blur(8px);
-            border: 1px solid var(--card-border);
+            border: 1px solid var(--card-border-glow);
             color: #F3D99B !important;
             font-size: 15px;
             font-weight: 700;
             font-family: 'Montserrat', sans-serif;
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4), 0 0 20px rgba(223, 186, 103, 0.15);
-            position: relative;
             transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease, color 0.3s ease;
             width: 100%;
             forced-color-adjust: none !important;
@@ -380,7 +381,13 @@
 
         .badge:hover {
             border-color: var(--card-border-glow);
+            background: var(--gold-gradient);
+            color: #080A0F !important;
             box-shadow: 0 0 25px rgba(223, 186, 103, 0.6), inset 0 0 10px rgba(255, 255, 255, 0.4);
+        }
+
+        .badge:hover span {
+            color: #080A0F !important;
         }
 
         .badge-icon {
@@ -625,7 +632,7 @@
         <!-- Pulsing Pill Badge Directly Below Header -->
         <div class="sub-header-banner">
             <span class="sub-header-subtitle">quick links i've created for you</span>
-            <div class="pulsing-badge-wrapper magnetic-target" style="width: auto;">
+            <div class="pulsing-badge-wrapper" style="width: auto;">
                 <a href="https://apex-922.github.io/CopyMyCart/HolidayEssentials" class="holiday-pill-badge" id="holidayPillBadge">
                     <div style="position:relative; display:inline-block;">
                         <img src="https://raw.githubusercontent.com/APEX-922/CopyMyCart/main/icon.png" alt="CopyMyCart Icon" class="badge-icon">
@@ -653,9 +660,9 @@
             </div>
 
             <div class="cta-group">
-                <div class="pulsing-badge-wrapper">
-                    <div class="badge-card magnetic-target">
-                        <span class="badge-label">Get This For Google Chrome</span>
+                <div class="badge-card magnetic-target">
+                    <span class="badge-label">Get This For Google Chrome</span>
+                    <div class="pulsing-badge-wrapper">
                         <a href="https://chromewebstore.google.com/detail/copycart/lhnmfphjaelpcpgfjjokadcfjljgmekb?authuser=1&hl=en" class="badge" id="badgeLogoChrome" style="text-decoration: none;" target="_blank" rel="noopener noreferrer">
                             <div style="position:relative; display:inline-block;">
                                 <img src="https://raw.githubusercontent.com/APEX-922/CopyMyCart/main/icon.png" alt="CopyMyCart Icon" class="badge-icon">
@@ -666,9 +673,9 @@
                     </div>
                 </div>
 
-                <div class="pulsing-badge-wrapper">
-                    <div class="badge-card magnetic-target">
-                        <span class="badge-label">Get This For Mozilla Firefox</span>
+                <div class="badge-card magnetic-target">
+                    <span class="badge-label">Get This For Mozilla Firefox</span>
+                    <div class="pulsing-badge-wrapper">
                         <a href="https://addons.mozilla.org/en-US/firefox/addon/CopyMyCart/" class="badge" id="badgeLogoFirefox" style="text-decoration: none;" target="_blank" rel="noopener noreferrer">
                             <div style="position:relative; display:inline-block;">
                                 <img src="https://raw.githubusercontent.com/APEX-922/CopyMyCart/main/icon.png" alt="CopyMyCart Icon" class="badge-icon">
