@@ -825,7 +825,7 @@
 
     function getCompletedItems() {
       try {
-        return JSON.parse(sessionStorage.getItem("cartomine_completed_items") || "[]");
+        return JSON.parse(sessionStorage.getItem("copymycart_completed_items") || "[]");
       } catch (e) {
         return [];
       }
@@ -835,7 +835,7 @@
       const completed = getCompletedItems();
       if (!completed.includes(itemId)) {
         completed.push(itemId);
-        sessionStorage.setItem("cartomine_completed_items", JSON.stringify(completed));
+        sessionStorage.setItem("copymycart_completed_items", JSON.stringify(completed));
       }
     }
 
@@ -846,7 +846,7 @@
       } else {
         completed = completed.filter(id => id !== itemId);
       }
-      sessionStorage.setItem("cartomine_completed_items", JSON.stringify(completed));
+      sessionStorage.setItem("copymycart_completed_items", JSON.stringify(completed));
     }
 
     function renderList() {
@@ -1077,7 +1077,7 @@
       renderList();
 
       resetAllBtn.addEventListener("click", () => {
-        sessionStorage.removeItem("cartomine_completed_items");
+        sessionStorage.removeItem("copymycart_completed_items");
         renderList();
       });
 
