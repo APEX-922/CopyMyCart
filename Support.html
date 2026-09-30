@@ -839,6 +839,15 @@ const placeholderExamples = [
 ];
 let placeholderIndex = 0;
 
+// Hostname validation helpers
+function isAmazonHost(host) {
+  return host === 'amazon.com' || host.endsWith('.amazon.com');
+}
+
+function isEbayHost(host) {
+  return host === 'ebay.com' || host.endsWith('.ebay.com') || host.endsWith('.ebay.co.uk') || host.endsWith('.ebay.de') || host.endsWith('.ebay.ca') || host.endsWith('.ebay.com.au');
+}
+
 function startPlaceholderTicker() {
   setInterval(() => {
     placeholderIndex = (placeholderIndex + 1) % placeholderExamples.length;
@@ -876,9 +885,17 @@ const card = document.getElementById('link-generator');
 let hasEbay = false;
 
 inputs.forEach(input => {
-const val = input.value.toLowerCase();
-if (val.includes('ebay.')) {
-hasEbay = true;
+let val = input.value.trim();
+if (!val) return;
+if (!/^https?:\/\//i.test(val)) val = 'https://' + val;
+
+try {
+  const url = new URL(val);
+  if (isEbayHost(url.hostname.toLowerCase())) {
+    hasEbay = true;
+  }
+} catch (e) {
+  // Ignore malformed strings during live typing
 }
 });
 
@@ -981,7 +998,7 @@ try {
 const url = new URL(val);
 const host = url.hostname.toLowerCase();
 
-if (host.includes('amazon.')) {
+if (isAmazonHost(host)) {
 const asin = extractASIN(val);
 if (!asin) {
 alert('Could not find a valid 10-character Product ID (ASIN) in one of your Amazon URLs.');
@@ -989,7 +1006,7 @@ return null;
 }
 amazonAsins.push(asin);
 amazonDomain = url.hostname;
-} else if (host.includes('ebay.')) {
+} else if (isEbayHost(host)) {
 const ebayData = extractEbayDetails(val);
 if (!ebayData) {
 alert('Could not find a valid numeric Item ID in one of your eBay URLs.');
