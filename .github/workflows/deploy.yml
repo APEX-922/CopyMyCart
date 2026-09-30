@@ -36,6 +36,12 @@ jobs:
             --output-dir ./dist \
             --file-ext html
 
+      - name: Copy static files
+        run: |
+          cp sitemap.xml dist/
+          cp robots.txt dist/
+          cp google8cff073960249417.html dist/
+
       - name: Upload Build Artifact
         uses: actions/upload-pages-artifact@v3
         with:
