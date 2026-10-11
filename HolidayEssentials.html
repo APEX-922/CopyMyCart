@@ -297,7 +297,26 @@
       box-shadow: 0 5px 15px rgba(223, 186, 103, 0.2);
     }
 
-    /* Fixed Image Anchor Link Styling */
+    /* Pulsing Glow Animation for Titles */
+    @keyframes titleGlowPulse {
+      0% {
+        color: #ffffff;
+        text-shadow: 0 0 2px rgba(223, 186, 103, 0.2), 0 0 5px rgba(243, 217, 155, 0.1);
+      }
+      50% {
+        color: #F9E4B7;
+        text-shadow: 0 0 8px rgba(223, 186, 103, 0.8), 0 0 15px rgba(243, 217, 155, 0.5);
+      }
+      100% {
+        color: #ffffff;
+        text-shadow: 0 0 2px rgba(223, 186, 103, 0.2), 0 0 5px rgba(243, 217, 155, 0.1);
+      }
+    }
+
+    .pulse-glow {
+      animation: titleGlowPulse 3s infinite ease-in-out;
+    }
+
     .item-image-link {
       display: block;
       width: 100%;
@@ -338,7 +357,6 @@
     .item-title {
       font-size: 13px;
       font-weight: 600;
-      color: var(--text-main);
       line-height: 1.3;
     }
 
@@ -542,7 +560,7 @@
                   <div class="bundle-item-wrapper">
                     <a href="${amazonUrl}" target="_blank" rel="noopener noreferrer" class="bundle-item">
                       <div class="item-details">
-                        <span class="item-title">${item.title}</span>
+                        <span class="item-title pulse-glow">${item.title}</span>
                         <span class="item-tag">View on Amazon ↗</span>
                       </div>
                     </a>
